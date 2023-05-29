@@ -15,6 +15,7 @@ namespace TowerDefense
 
         private Level level;
         private int baseHP = 100;
+        private int money;
         private bool[][] occupied;
 
         Game(string levelPath)

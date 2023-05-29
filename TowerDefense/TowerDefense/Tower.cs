@@ -11,7 +11,8 @@ namespace TowerDefense
         private SelectMethod selectMethod;
         private DamageMethod damageMethod;
         private List<Enemy> selectedEnemies;
-        
+        private int cost;
+
         public void select(List<Enemy> enemies)
         {
             selectedEnemies = selectMethod.select(enemies);

@@ -11,6 +11,8 @@ namespace TowerDefense
     {
         public List<Tile> path;
         public List<Wave> waves;
+        public int startMoney;
+
         public Level(string levelPath)
         {
             string filePath = Application.StartupPath + levelPath;
