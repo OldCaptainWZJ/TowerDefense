@@ -12,6 +12,7 @@ namespace TowerDefense
         private DamageMethod damageMethod;
         private List<Enemy> selectedEnemies;
         private int cost;
+        private Tile position;
 
         public void select(List<Enemy> enemies)
         {

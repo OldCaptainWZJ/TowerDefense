@@ -23,7 +23,7 @@ namespace TowerDefense
             level = new Level(levelPath);
         }
 
-        public bool defenseFrame()
+        public bool defenseStage()
         {
             //tower attack
             foreach(var t in towers)
@@ -41,7 +41,12 @@ namespace TowerDefense
                 e.statusEffect();
                 
                 if (e.dead()) deleteList.Add(e); //enemy is dead
-                //if (!e.dead() && e.position == goal) baseHP -= e.attack; //enemy reached base, base take damage
+                if (!e.dead() && e.reachedBase(level.path[level.path.Count-1]))
+                {
+                    baseHP -= e.Attack;
+                    deleteList.Add(e);
+                }
+                //enemy reached base, base take damage
             }
 
             //fail
