@@ -13,10 +13,18 @@ namespace TowerDefense
         private List<Enemy> selectedEnemies;
         private int cost;
         private Tile position;
+        private double maxCooldown;
+        private double cooldown;
 
-        public void select(List<Enemy> enemies)
+        public void select(List<Enemy> enemies, double delta_t)
         {
-            selectedEnemies = selectMethod.select(enemies);
+            cooldown -= delta_t;
+            if (cooldown <= 0.0)
+            {
+                cooldown += maxCooldown;
+                selectedEnemies = selectMethod.select(enemies);
+            }
+            else selectedEnemies.Clear();
         }
         //select enemies within range of attack
         public void deal()

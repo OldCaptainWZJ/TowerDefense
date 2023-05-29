@@ -17,6 +17,9 @@ namespace TowerDefense
         private int baseHP = 100;
         private int money;
         private bool[][] occupied;
+        private double last_t; //last recorded time (s)
+
+        private System.DateTime currentTime = new System.DateTime();
 
         Game(string levelPath)
         {
@@ -25,10 +28,14 @@ namespace TowerDefense
 
         public bool defenseStage()
         {
+            double now_t = ((double)currentTime.Millisecond) / 1000.0;
+            double delta_t = now_t - last_t;
+            last_t = now_t;
+
             //tower attack
             foreach(var t in towers)
             {
-                t.select(enemies);
+                t.select(enemies, delta_t);
                 t.deal();
             }
 
@@ -37,8 +44,8 @@ namespace TowerDefense
             //change enemy status
             foreach (var e in enemies)
             {
-                e.move();
-                e.statusEffect();
+                e.move(delta_t);
+                e.statusEffect(delta_t);
                 
                 if (e.dead()) deleteList.Add(e); //enemy is dead
                 if (!e.dead() && e.reachedBase(level.path[level.path.Count-1]))
