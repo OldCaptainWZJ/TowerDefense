@@ -1,0 +1,11 @@
+E:\Code\TowerDefense\TowerDefense\TowerDefense\bin\Debug\TowerDefense.exe.config
+E:\Code\TowerDefense\TowerDefense\TowerDefense\bin\Debug\TowerDefense.exe
+E:\Code\TowerDefense\TowerDefense\TowerDefense\bin\Debug\TowerDefense.pdb
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.csproj.AssemblyReference.cache
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.csproj.SuggestedBindingRedirects.cache
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.GameForm.resources
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.Properties.Resources.resources
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.csproj.GenerateResource.cache
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.csproj.CoreCompileInputs.cache
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.exe
+E:\Code\TowerDefense\TowerDefense\TowerDefense\obj\Debug\TowerDefense.pdb
