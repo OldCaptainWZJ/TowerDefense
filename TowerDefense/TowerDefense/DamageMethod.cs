@@ -11,4 +11,21 @@ namespace TowerDefense
         public abstract void deal(List<Enemy> enemies);
         //deal damage and/or status effects to enemies
     }
+
+    internal class NormalDamage : DamageMethod
+    {
+        private double damage;
+
+        public NormalDamage(double damage)
+        {
+            this.damage = damage;
+        }
+        public override void deal(List<Enemy> enemies)
+        {
+            foreach(var e in enemies)
+            {
+                e.dealtDamage(damage);
+            }
+        }
+    }
 }

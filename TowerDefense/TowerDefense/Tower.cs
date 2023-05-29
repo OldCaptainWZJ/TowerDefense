@@ -8,13 +8,18 @@ namespace TowerDefense
 {
     internal abstract class Tower
     {
-        private SelectMethod selectMethod;
-        private DamageMethod damageMethod;
-        private List<Enemy> selectedEnemies;
-        private int cost;
-        private Tile position;
-        private double maxCooldown;
-        private double cooldown;
+        protected SelectMethod selectMethod;
+        protected DamageMethod damageMethod;
+        protected List<Enemy> selectedEnemies;
+        protected int cost;
+        protected Tile position;
+        protected double maxCooldown;
+        protected double cooldown;
+
+        public void initCooldown()
+        {
+            cooldown = maxCooldown;
+        }
 
         public void select(List<Enemy> enemies, double delta_t)
         {
@@ -32,5 +37,21 @@ namespace TowerDefense
             damageMethod.deal(selectedEnemies);
         }
         //deal damage and status effects to selected enemies
+    }
+
+    internal class DefaultTower : Tower
+    {
+        public DefaultTower(Tile position)
+        {
+            this.position = position;
+            cost = 100;
+            maxCooldown = 2.0;
+
+            selectMethod = new SniperSelect(5.0, position);
+            damageMethod = new NormalDamage(5.0);
+
+            //values subject to change
+            //maybe read from some settings file?
+        }
     }
 }

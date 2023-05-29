@@ -36,7 +36,16 @@ namespace TowerDefense
         {
             bool flag = true;
 
+            foreach(var t in towers)
+            {
+                t.initCooldown();
+            }
+
             currentEnemy = 0;
+
+            enemies.Add(level.waves[currentWave].enemies[0]);
+            enemies[0].initPosition(level.path[0]);
+
             last_t = ((double)currentTime.Millisecond) / 1000.0;
 
             while (flag)

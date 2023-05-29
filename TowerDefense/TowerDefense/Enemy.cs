@@ -14,18 +14,20 @@ namespace TowerDefense
     }
     internal abstract class Enemy
     {
-        private double maxHP;
-        private double HP;
-        private int attack; //attack power (HP lost if reached base)
-        private double speed; //movement speed
-        private int reward; //money given when killed
-        private List<double> status; //status effect timers
+        protected double maxHP;
+        protected double HP;
+        protected int attack; //attack power (HP lost if reached base)
+        protected double speed; //movement speed
+        protected int reward; //money given when killed
+        protected List<double> status; //status effect timers
 
-        private double pos_x;
-        private double pos_y;
+        protected double pos_x;
+        protected double pos_y;
 
         public int Attack { get { return attack; } }
         public int Reward { get { return reward; } }
+        public double Pos_x { get { return pos_x; } }
+        public double Pos_y { get { return pos_y; } }
 
         public bool dead() { return (HP <= 0.0); }
         public bool reachedBase(Tile baseTile)
