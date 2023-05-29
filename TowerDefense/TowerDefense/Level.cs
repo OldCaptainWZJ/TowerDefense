@@ -35,6 +35,6 @@ namespace TowerDefense
     {
         public int n; //number of enemies
         public List<Enemy> enemies; //order of enemies
-        public List<int> intervals; //time interval between enemy appearance
+        public List<double> intervals; //time interval between enemy appearance
     }
 }

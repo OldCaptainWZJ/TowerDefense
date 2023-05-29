@@ -24,10 +24,8 @@ namespace TowerDefense
         private double pos_x;
         private double pos_y;
 
-        public int Attack
-        { 
-            get { return attack; } 
-        }
+        public int Attack { get { return attack; } }
+        public int Reward { get { return reward; } }
 
         public bool dead() { return (HP <= 0.0); }
         public bool reachedBase(Tile baseTile)
@@ -36,6 +34,10 @@ namespace TowerDefense
             //TODO
         }
 
+        public void initPosition(Tile startTile)
+        {
+            //TODO
+        }
         public abstract void move(double delta_t); //calculate movement
         public abstract void statusEffect(double delta_t); //calculate status effects
 
