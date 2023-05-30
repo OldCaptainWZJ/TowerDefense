@@ -36,9 +36,14 @@ namespace TowerDefense
 
         private bool InRange(double x, double y, double r, Tile pos)
         {
-            throw new NotImplementedException();
-            return true;
-            //TODO
+            double cx = x + 0.5 * GridParams.TileSize;
+            double cy = y + 0.5 * GridParams.TileSize;
+            double tilecx = (((double)pos.x) + 0.5) * GridParams.TileSize;
+            double tilecy = (((double)pos.y) + 0.5) * GridParams.TileSize;
+
+            if ((cx - tilecx) * (cx - tilecx) + (cy - tilecy) * (cy - tilecy) <= r * r)
+                return true;
+            return false;
         }
     } 
 }
