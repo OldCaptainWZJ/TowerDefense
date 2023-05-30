@@ -8,7 +8,7 @@ namespace TowerDefense
 {
     internal abstract class DamageMethod
     {
-        public abstract void deal(List<Enemy> enemies);
+        public abstract void deal(List<Enemy> enemies, double delta_t);
         //deal damage and/or status effects to enemies
     }
 
@@ -20,11 +20,29 @@ namespace TowerDefense
         {
             this.damage = damage;
         }
-        public override void deal(List<Enemy> enemies)
+        public override void deal(List<Enemy> enemies, double delta_t)
         {
             foreach(var e in enemies)
             {
                 e.dealtDamage(damage);
+            }
+        }
+    }
+
+    internal class ContinuousDamage : DamageMethod
+    {
+        private double damageSpeed; //damage per second
+
+        public ContinuousDamage(double damageSpeed)
+        {
+            this.damageSpeed = damageSpeed;
+        }
+
+        public override void deal(List<Enemy> enemies, double delta_t)
+        {
+            foreach (var e in enemies)
+            {
+                e.dealtDamage(damageSpeed * delta_t);
             }
         }
     }

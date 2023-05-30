@@ -21,7 +21,15 @@ namespace TowerDefense
             cooldown = maxCooldown;
         }
 
-        public void select(List<Enemy> enemies, double delta_t)
+        public abstract void select(List<Enemy> enemies, double delta_t);
+        //select enemies within range of attack
+        public void deal(double delta_t)
+        {
+            damageMethod.deal(selectedEnemies, delta_t);
+        }
+        //deal damage and status effects to selected enemies
+        
+        protected void cooldownSelect(List<Enemy> enemies, double delta_t)
         {
             cooldown -= delta_t;
             if (cooldown <= 0.0)
@@ -31,12 +39,11 @@ namespace TowerDefense
             }
             else selectedEnemies.Clear();
         }
-        //select enemies within range of attack
-        public void deal()
+
+        protected void continuousSelect(List<Enemy> enemies)
         {
-            damageMethod.deal(selectedEnemies);
+            selectedEnemies = selectMethod.select(enemies);
         }
-        //deal damage and status effects to selected enemies
     }
 
     internal class DefaultTower : Tower
@@ -52,6 +59,11 @@ namespace TowerDefense
 
             //values subject to change
             //maybe read from some settings file?
+        }
+
+        public override void select(List<Enemy> enemies, double delta_t)
+        {
+            cooldownSelect(enemies, delta_t);
         }
     }
 }

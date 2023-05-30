@@ -85,7 +85,7 @@ namespace TowerDefense
             foreach(var t in towers)
             {
                 t.select(enemies, delta_t);
-                t.deal();
+                t.deal(delta_t);
             }
 
             deleteList.Clear();

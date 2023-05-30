@@ -36,6 +36,7 @@ namespace TowerDefense
 
         private bool InRange(double x, double y, double r, Tile pos)
         {
+            throw new NotImplementedException();
             return true;
             //TODO
         }
