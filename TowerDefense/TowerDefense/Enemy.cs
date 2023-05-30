@@ -41,12 +41,16 @@ namespace TowerDefense
             if (HP <= 0.0) return true;
             return false;
         }
-        public bool reachedBase(Tile baseTile)
+        public bool reachedBase()
         {
             if (movingStage == path.Count-1) return true;
             return false;
         }
 
+        public void initPath(List<Tile> path)
+        {
+            this.path = path;
+        }
         public void initPosition(Tile startTile)
         {
             pos_x = GridParams.StartX + ((double)startTile.x) * GridParams.TileSize;

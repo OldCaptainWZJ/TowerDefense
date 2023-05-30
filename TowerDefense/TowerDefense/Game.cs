@@ -102,7 +102,7 @@ namespace TowerDefense
                     deleteList.Add(e);
                     money += e.Reward;
                 }
-                if (!e.dead() && e.reachedBase(level.path[level.path.Count-1]))
+                if (!e.dead() && e.reachedBase())
                 {
                     //enemy reached base, base take damage
                     baseHP -= e.Attack;
