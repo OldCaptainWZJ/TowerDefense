@@ -55,6 +55,7 @@ namespace TowerDefense
                 last_t = now_t;
 
                 flag = waveProcess(delta_t);
+                if (!flag) break;
 
                 level.waves[currentWave].intervals[currentEnemy] -= delta_t;
                 if (level.waves[currentWave].intervals[currentEnemy] <= 0.0)
