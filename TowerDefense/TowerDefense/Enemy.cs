@@ -38,7 +38,8 @@ namespace TowerDefense
 
         public bool dead()
         {
-            if (HP <= 0.0) return true;
+            double eps = 1e-5;
+            if (HP <= eps) return true;
             return false;
         }
         public bool reachedBase()
@@ -113,18 +114,18 @@ namespace TowerDefense
         {
             speed = defaultSpeed;
 
-            for(int i=0; i<status.Count; i++)
-            {
-                if (status[i] > 0.0) status[i] -= delta_t;
-            }
-            
             if (status[(int)StatusEffect.Frozen] > 0.0)
             {
                 speed = 0.5 * defaultSpeed; //values subject to change
             }
             if (status[(int)StatusEffect.Poisoned] > 0.0)
             {
-                dealtDamage(10.0 * delta_t); //values subject to change
+                dealtDamage(10.0 * Math.Min(delta_t, status[(int)StatusEffect.Poisoned])); //values subject to change
+            }
+
+            for (int i=0; i<status.Count; i++)
+            {
+                if (status[i] > 0.0) status[i] -= delta_t;
             }
         }
 
