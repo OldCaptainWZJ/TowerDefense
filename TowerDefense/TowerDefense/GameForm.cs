@@ -16,9 +16,12 @@ namespace TowerDefense
     {
         private Game game;
         private Level level;
+        private Bitmap gameSceneImage;
 
         public GameForm()
         {
+            gameSceneImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
             InitializeComponent();
 
             //设置父组件为GameForm窗体
@@ -36,23 +39,13 @@ namespace TowerDefense
             help_panel.Controls.Add(help_content_textBox);
         }
 
-        private void GameForm_Paint(object sender, PaintEventArgs e)
-        {
-            startMenuPaint(sender, e);
-            gameScenePaint(sender, e);
-            towerPlacementPaint(sender, e);
-        }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Invalidate();
+            if (game_scene_panel.Visible)
+            {
+                game_scene_panel.Invalidate();
+            }
         }
-
-        private void GameForm_Load(object sender, EventArgs e)
-        {
-            gameSceneLoad(sender, e);
-        }
-
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
@@ -109,5 +102,49 @@ namespace TowerDefense
             help_panel.Visible = false;
             start_menu_panel.Visible = true;
         }
+
+        private void game_scene_panel_Paint(object sender, PaintEventArgs e)
+        {
+            // 将游戏场景绘制到一张图片上
+            Graphics sceneG = Graphics.FromImage(gameSceneImage);
+
+            // 记录路径
+            bool[,] roadMark = new bool[GridParams.GridSizeX, GridParams.GridSizeY];
+
+            // 绘制起点终点
+            if (level.path.Count > 0)
+            {
+                roadMark[level.path.First().x, level.path.First().y] = true;
+                sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * level.path.First().x, GridParams.TileSize * level.path.First().y);
+
+                roadMark[level.path.Last().x, level.path.Last().y] = true;
+                sceneG.DrawImage(Resource1.exit, GridParams.TileSize * level.path.Last().x, GridParams.TileSize * level.path.Last().y);
+            }
+
+            // 绘制路径
+            for (int i= 1;i < level.path.Count() - 1;++i)
+            {
+                var tile = level.path[i];
+                roadMark[tile.x, tile.y] = true;
+                sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y);
+            }
+
+            // 绘制其他网格
+            for (int i = 0; i < GridParams.GridSizeX; ++i)
+            {
+                for (int j = 0; j < GridParams.GridSizeY; ++j)
+                {
+                    if (!roadMark[i, j])
+                    {
+                        sceneG.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
+                    }
+                }
+            }
+
+            // 将场景图片绘制到屏幕上
+            Graphics g = e.Graphics;
+            g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+        }
+
     }
 }

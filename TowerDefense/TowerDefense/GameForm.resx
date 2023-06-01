@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cover_pictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABJ0AAANRCAYAAABJPc0GAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAA/7JJREFUeF7s/eeTJNeZ53v2P7HKbHfv7t65c2fumq2tuGu772bG9vaI7p7WnJbT
+        vwAADr8BOAVTJAAA/7JJREFUeF7s/eeTJNeZ53v2P7HKbHfv7t65c2fumq2tuGu772bG9vaI7p7WnJbT
         Yropms0WbLZgU4OEIChACJIACEKVQFWhCqV1yhJZuip1hhaptdby2fM7Ho/H4yce9/CIzCwUSLz4WmgP
         D4+ILPgHx0/8wv/6X/0y/fKX2ujffv227f/3tdv0v3z9TkX/wdz2H5+6a/tP37wX6Je+dZ/+89P36Fef
         uU+/9uwDv994ptxvPvvI9lvPtdMnnu+g33m+0/a73+my/cF3u+kPv9dLf/T9Htsfv9Dr9ycv9tj+9KVe
@@ -24753,6 +24750,9 @@
         gg==
 </value>
   </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>227, 17</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
