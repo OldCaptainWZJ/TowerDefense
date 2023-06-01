@@ -121,5 +121,28 @@
   <ItemGroup>
     <None Include="resource\cover.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resource\games_config\chapter1\1-1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resource\games_config\chapter1\1-2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resource\games_config\chapter1\1-3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resource\games_config\help.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="resource\games_config\chapter2\2-1.txt" />
+    <Content Include="resource\games_config\chapter2\2-2.txt" />
+    <Content Include="resource\games_config\chapter2\2-3.txt" />
+    <Content Include="resource\games_config\chapter3\3-1.txt" />
+    <Content Include="resource\games_config\chapter3\3-2.txt" />
+    <Content Include="resource\games_config\chapter3\3-3.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

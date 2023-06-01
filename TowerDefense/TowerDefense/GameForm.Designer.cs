@@ -29,14 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.start_menu_panel = new System.Windows.Forms.Panel();
             this.exit_button = new System.Windows.Forms.Button();
             this.select_level_button = new System.Windows.Forms.Button();
             this.start_game_button = new System.Windows.Forms.Button();
             this.cover_pictureBox = new System.Windows.Forms.PictureBox();
+            this.help_button = new System.Windows.Forms.Button();
+            this.help_panel = new System.Windows.Forms.Panel();
+            this.help_content_textBox = new System.Windows.Forms.TextBox();
+            this.help_to_start_menu_button = new System.Windows.Forms.Button();
+            this.game_scene_panel = new System.Windows.Forms.Panel();
             this.start_menu_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).BeginInit();
+            this.help_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -47,10 +54,12 @@
             // 
             // start_menu_panel
             // 
-            this.start_menu_panel.Controls.Add(this.exit_button);
-            this.start_menu_panel.Controls.Add(this.select_level_button);
-            this.start_menu_panel.Controls.Add(this.start_game_button);
+            this.start_menu_panel.Controls.Add(this.help_panel);
             this.start_menu_panel.Controls.Add(this.cover_pictureBox);
+            this.start_menu_panel.Controls.Add(this.start_game_button);
+            this.start_menu_panel.Controls.Add(this.select_level_button);
+            this.start_menu_panel.Controls.Add(this.help_button);
+            this.start_menu_panel.Controls.Add(this.exit_button);
             this.start_menu_panel.Location = new System.Drawing.Point(0, 0);
             this.start_menu_panel.Name = "start_menu_panel";
             this.start_menu_panel.Size = new System.Drawing.Size(1181, 855);
@@ -80,7 +89,7 @@
             this.select_level_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.select_level_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.select_level_button.ForeColor = System.Drawing.Color.Black;
-            this.select_level_button.Location = new System.Drawing.Point(756, 659);
+            this.select_level_button.Location = new System.Drawing.Point(756, 579);
             this.select_level_button.Name = "select_level_button";
             this.select_level_button.Size = new System.Drawing.Size(288, 56);
             this.select_level_button.TabIndex = 2;
@@ -96,7 +105,7 @@
             this.start_game_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.start_game_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.start_game_button.ForeColor = System.Drawing.Color.Black;
-            this.start_game_button.Location = new System.Drawing.Point(756, 574);
+            this.start_game_button.Location = new System.Drawing.Point(756, 496);
             this.start_game_button.Name = "start_game_button";
             this.start_game_button.Size = new System.Drawing.Size(288, 56);
             this.start_game_button.TabIndex = 1;
@@ -106,7 +115,7 @@
             // 
             // cover_pictureBox
             // 
-            this.cover_pictureBox.Image = global::TowerDefense.Properties.Resources.cover;
+            this.cover_pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("cover_pictureBox.Image")));
             this.cover_pictureBox.Location = new System.Drawing.Point(0, 0);
             this.cover_pictureBox.Name = "cover_pictureBox";
             this.cover_pictureBox.Size = new System.Drawing.Size(1181, 855);
@@ -114,6 +123,63 @@
             this.cover_pictureBox.TabIndex = 0;
             this.cover_pictureBox.TabStop = false;
             this.cover_pictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // help_button
+            // 
+            this.help_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.help_button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.help_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.help_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.help_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.help_button.ForeColor = System.Drawing.Color.Black;
+            this.help_button.Location = new System.Drawing.Point(756, 659);
+            this.help_button.Name = "help_button";
+            this.help_button.Size = new System.Drawing.Size(288, 56);
+            this.help_button.TabIndex = 4;
+            this.help_button.Text = "HELP";
+            this.help_button.UseVisualStyleBackColor = false;
+            this.help_button.Click += new System.EventHandler(this.help_button_Click);
+            // 
+            // help_panel
+            // 
+            this.help_panel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.help_panel.Controls.Add(this.game_scene_panel);
+            this.help_panel.Controls.Add(this.help_to_start_menu_button);
+            this.help_panel.Controls.Add(this.help_content_textBox);
+            this.help_panel.Location = new System.Drawing.Point(0, 1);
+            this.help_panel.Name = "help_panel";
+            this.help_panel.Size = new System.Drawing.Size(1181, 851);
+            this.help_panel.TabIndex = 5;
+            this.help_panel.Visible = false;
+            // 
+            // help_content_textBox
+            // 
+            this.help_content_textBox.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.help_content_textBox.Location = new System.Drawing.Point(151, 92);
+            this.help_content_textBox.Multiline = true;
+            this.help_content_textBox.Name = "help_content_textBox";
+            this.help_content_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.help_content_textBox.Size = new System.Drawing.Size(864, 759);
+            this.help_content_textBox.TabIndex = 0;
+            // 
+            // help_to_start_menu_button
+            // 
+            this.help_to_start_menu_button.Location = new System.Drawing.Point(947, 11);
+            this.help_to_start_menu_button.Name = "help_to_start_menu_button";
+            this.help_to_start_menu_button.Size = new System.Drawing.Size(213, 59);
+            this.help_to_start_menu_button.TabIndex = 1;
+            this.help_to_start_menu_button.Text = "BACK";
+            this.help_to_start_menu_button.UseVisualStyleBackColor = true;
+            this.help_to_start_menu_button.Click += new System.EventHandler(this.help_to_start_menu_button_Click);
+            // 
+            // game_scene_panel
+            // 
+            this.game_scene_panel.BackColor = System.Drawing.Color.IndianRed;
+            this.game_scene_panel.Location = new System.Drawing.Point(0, 0);
+            this.game_scene_panel.Name = "game_scene_panel";
+            this.game_scene_panel.Size = new System.Drawing.Size(1181, 851);
+            this.game_scene_panel.TabIndex = 6;
+            this.game_scene_panel.Visible = false;
             // 
             // GameForm
             // 
@@ -128,6 +194,8 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameForm_Paint);
             this.start_menu_panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).EndInit();
+            this.help_panel.ResumeLayout(false);
+            this.help_panel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -140,6 +208,11 @@
         private System.Windows.Forms.Button start_game_button;
         private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.Button select_level_button;
+        private System.Windows.Forms.Button help_button;
+        private System.Windows.Forms.Panel help_panel;
+        private System.Windows.Forms.TextBox help_content_textBox;
+        private System.Windows.Forms.Button help_to_start_menu_button;
+        private System.Windows.Forms.Panel game_scene_panel;
     }
 }
 
