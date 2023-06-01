@@ -9,6 +9,6 @@ namespace TowerDefense
 {
     public partial class GameForm
     {
-        private void startMenuPaint(object sender, PaintEventArgs e) { }
+        private void startMenuPaint(object sender, PaintEventArgs e){ }
     }
 }
