@@ -56,15 +56,6 @@
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameFormGameScene.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameFormTowerPlacement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameFormStartMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GridParams.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Program.cs" />
