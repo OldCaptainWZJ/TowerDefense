@@ -16,14 +16,14 @@ namespace TowerDefense
         private Level level;
         private int baseHP = 100;
         private int money;
-        private bool[][] occupied;
-        private int currentWave = 0;
-        private int currentEnemy = 0;
+        private bool[,] occupied;
+        private int currentWaveIndex = 0;
+        private Wave currentWave;
         private double last_t; //last recorded time (s)
 
         public int BaseHP { get { return baseHP; } }
         public int Money { get { return money; } }
-        public int CurrentWave { get { return currentWave; } }
+        public int CurrentWave { get { return currentWaveIndex; } }
 
         private System.DateTime currentTime = new System.DateTime();
 
@@ -41,42 +41,46 @@ namespace TowerDefense
                 t.initCooldown();
             }
 
-            currentEnemy = 0;
-
-            enemies.Add(level.waves[currentWave].enemies[0]);
+            currentWave = level.waves[currentWaveIndex];
+            enemies.Add(currentWave.enemies[0]);
             enemies[0].initPosition(level.path[0]);
 
-            last_t = ((double)currentTime.Millisecond) / 1000.0;
+            double start_t = currentTime.Millisecond / 1000.0;
+            last_t = start_t;
 
             while (flag)
             {
-                double now_t = ((double)currentTime.Millisecond) / 1000.0;
+                double now_t = currentTime.Millisecond / 1000.0;
                 double delta_t = now_t - last_t;
                 last_t = now_t;
 
                 flag = waveProcess(delta_t);
                 if (!flag) break;
 
-                level.waves[currentWave].intervals[currentEnemy] -= delta_t;
-                if (level.waves[currentWave].intervals[currentEnemy] <= 0.0)
+                int producedCount = 0;
+                for(int i=0; i < currentWave.enemies.Count; i++)
                 {
-                    //generate enemy
-                    currentEnemy++;
-                    if (currentEnemy != level.waves[currentWave].enemies.Count)
+                    if (currentWave.produced[i])
                     {
-                        enemies.Add(level.waves[currentWave].enemies[++currentEnemy]);
-                        enemies[enemies.Count - 1].initPosition(level.path[0]);
+                        producedCount++;
+                        continue;
+                    }
+                    if (currentWave.produceTime[i] <= now_t - start_t)
+                    {
+                        enemies.Add(currentWave.enemies[i]);
+                        currentWave.produced[i] = true;
+                        producedCount++;
                     }
                 }
 
-                if (currentEnemy == level.waves[currentWave].enemies.Count && enemies.Count == 0)
+                if (producedCount == currentWave.enemies.Count && enemies.Count == 0)
                     break; //wave complete
             }
 
-            currentWave++;
+            currentWaveIndex++;
 
             if (!flag) return 0;
-            if (currentWave == level.waves.Count) return 2;
+            if (currentWaveIndex == level.waves.Count) return 2;
             return 1;
         }
 

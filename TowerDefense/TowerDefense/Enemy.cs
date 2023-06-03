@@ -16,6 +16,12 @@ namespace TowerDefense
         Poisoned = 1,
         TotalCount = 2
     }
+
+    enum EnemyType
+    {
+        Basic = 0
+    }
+
     internal abstract class Enemy
     {
         protected double maxHP;
