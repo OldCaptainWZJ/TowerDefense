@@ -55,8 +55,8 @@ namespace TowerDefense
     internal class Wave
     {
         public int n; //number of enemies
-        public List<Enemy> enemies = new List<Enemy>(); //order of enemies
-        public List<double> produceTime = new List<double>(); //time interval between enemy appearance
+        public List<Enemy> enemies = new List<Enemy>(); //list of enemies
+        public List<double> produceTime = new List<double>(); //produce time (starting from wave start time)
         public bool[] produced; //true if enemy is already produced in the level
 
         public void loadWave(StreamReader reader)
