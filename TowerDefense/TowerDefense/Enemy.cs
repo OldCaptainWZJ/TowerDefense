@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +13,8 @@ namespace TowerDefense
     enum StatusEffect
     {
         Frozen = 0,
-        Poisoned = 1
+        Poisoned = 1,
+        TotalCount = 2
     }
     internal abstract class Enemy
     {
@@ -26,7 +28,7 @@ namespace TowerDefense
 
         //for movement calculation
         protected List<Tile> path;
-        protected int movingStage; //if enemy position between Tile i and i+1 of path, this should be i
+        protected int movingStage = 0; //if enemy position between Tile i and i+1 of path, this should be i
 
         protected double pos_x;
         protected double pos_y; //position (pixel, top-left)
@@ -137,6 +139,40 @@ namespace TowerDefense
         protected void defaultDealtStatusEffect(StatusEffect type, double val)
         {
             status[(int)type] = val;
+        }
+    }
+
+    internal class BasicEnemy : Enemy
+    {
+        public BasicEnemy()
+        {
+            HP = maxHP = 15.0;
+            attack = 5;
+            speed = defaultSpeed = 1.0;
+            reward = 20;
+
+            status = new List<double>();
+            for(int i=0; i<(int)StatusEffect.TotalCount; i++)
+            {
+                status.Add(0.0);
+            }
+        }
+        public override void move(double delta_t)
+        {
+            defaultMove(delta_t);
+        }
+        public override void statusEffect(double delta_t)
+        {
+            defaultStatusEffect(delta_t);
+        }
+
+        public override void dealtDamage(double val)
+        {
+            defaultDealtDamage(val);
+        }
+        public override void dealtStatusEffect(StatusEffect type, double val)
+        {
+            defaultDealtStatusEffect(type, val);
         }
     }
 }

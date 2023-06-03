@@ -52,13 +52,12 @@ namespace TowerDefense
         {
             this.position = position;
             cost = 100;
-            maxCooldown = 2.0;
+            maxCooldown = 1.0;
 
-            selectMethod = new SniperSelect(5.0, position);
+            selectMethod = new SniperSelect(2.0, position);
             damageMethod = new NormalDamage(5.0);
 
             //values subject to change
-            //maybe read from some settings file?
         }
 
         public override void select(List<Enemy> enemies, double delta_t)
