@@ -10,8 +10,8 @@ namespace TowerDefense
 {
     internal class Level
     {
-        public List<Tile> path;
-        public List<Wave> waves;
+        public List<Tile> path = new List<Tile>();
+        public List<Wave> waves = new List<Wave>();
         public int startMoney;
 
         public Level(string levelPath)
@@ -25,6 +25,22 @@ namespace TowerDefense
             FileStream F = new FileStream(filePath, FileMode.Open);
             StreamReader reader = new StreamReader(F);
 
+            string[] strings = reader.ReadLine().Split(' ');
+            int nowX = Convert.ToInt32(strings[0]);
+            int nowY = Convert.ToInt32(strings[1]);
+
+            path.Add(new Tile(nowX, nowY));
+            string str = reader.ReadLine();
+
+            for (int i=0; i<str.Length; i++)
+            {
+                if (str[i] == 'w') nowY--;
+                if (str[i] == 'a') nowX--;
+                if (str[i] == 's') nowY++;
+                if (str[i] == 'd') nowX++;
+                path.Add(new Tile(nowX, nowY));
+            }
+
             int waveCount = Convert.ToInt32(reader.ReadLine());
 
             while(waveCount > 0)
@@ -35,6 +51,8 @@ namespace TowerDefense
 
                 waveCount--;
             }
+
+            startMoney = Convert.ToInt32(reader.ReadLine());
 
             F.Close();
         }
