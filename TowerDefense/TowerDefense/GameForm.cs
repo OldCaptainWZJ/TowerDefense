@@ -16,7 +16,7 @@ namespace TowerDefense
     {
         private Game game;
         private Level level;
-        private Bitmap gameSceneImage;
+        private Image gameSceneImage;
 
         public GameForm()
         {
@@ -117,10 +117,10 @@ namespace TowerDefense
             if (level.path.Count > 0)
             {
                 roadMark[level.path.First().x, level.path.First().y] = true;
-                sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * level.path.First().x, GridParams.TileSize * level.path.First().y);
+                sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * level.path.First().x, GridParams.TileSize * level.path.First().y, GridParams.TileSize, GridParams.TileSize);
 
                 roadMark[level.path.Last().x, level.path.Last().y] = true;
-                sceneG.DrawImage(Resource1.exit, GridParams.TileSize * level.path.Last().x, GridParams.TileSize * level.path.Last().y);
+                sceneG.DrawImage(Resource1.exit, GridParams.TileSize * level.path.Last().x, GridParams.TileSize * level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制路径
@@ -128,7 +128,7 @@ namespace TowerDefense
             {
                 var tile = level.path[i];
                 roadMark[tile.x, tile.y] = true;
-                sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y);
+                sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制其他网格
@@ -142,6 +142,9 @@ namespace TowerDefense
                     }
                 }
             }
+
+            // 绘制塔与敌人
+            game.paint(sceneG);
 
             // 将场景图片绘制到屏幕上
             Graphics g = e.Graphics;

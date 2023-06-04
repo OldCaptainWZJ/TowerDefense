@@ -63,6 +63,16 @@ namespace TowerDefense {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap enemy {
+            get {
+                object obj = ResourceManager.GetObject("enemy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap entrance {
             get {
                 object obj = ResourceManager.GetObject("entrance", resourceCulture);
@@ -96,6 +106,16 @@ namespace TowerDefense {
         internal static System.Drawing.Bitmap tile {
             get {
                 object obj = ResourceManager.GetObject("tile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tower {
+            get {
+                object obj = ResourceManager.GetObject("tower", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

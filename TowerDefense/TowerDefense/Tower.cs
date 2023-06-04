@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefense
 {
-    internal abstract class Tower
+    internal abstract partial class Tower
     {
         protected SelectMethod selectMethod;
         protected DamageMethod damageMethod;

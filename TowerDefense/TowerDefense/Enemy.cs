@@ -22,7 +22,7 @@ namespace TowerDefense
         Basic = 0
     }
 
-    internal abstract class Enemy
+    internal abstract partial class Enemy
     {
         protected double maxHP;
         protected double HP;
