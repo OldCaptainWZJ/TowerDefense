@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefense
 {
-    internal class Game
+    internal partial class Game
     {
         private List<Tower> towers = new List<Tower>();
         private List<Enemy> enemies = new List<Enemy>();

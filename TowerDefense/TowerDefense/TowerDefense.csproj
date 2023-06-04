@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="DamageMethod.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="GamePaiting.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
@@ -66,6 +67,8 @@
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="SelectMethod.cs" />
+    <Compile Include="EnemyPainting .cs" />
+    <Compile Include="TowerPainting.cs" />
     <Compile Include="Tower.cs" />
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
@@ -128,6 +131,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="resource\tower.png" />
+    <None Include="resource\enemy.png" />
     <Content Include="resource\games_config\chapter2\2-1.txt" />
     <Content Include="resource\games_config\chapter2\2-2.txt" />
     <Content Include="resource\games_config\chapter2\2-3.txt" />
