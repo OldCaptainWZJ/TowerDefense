@@ -58,7 +58,8 @@ namespace TowerDefense
             //start_menu_panel.Dispose();
             start_menu_panel.Visible = false;
 
-            level = new Level("chapter1/1-1.txt");
+            game = new Game("chapter1/1-1.txt");
+            level = game.Level;
 
             //加载游戏界面的panel
             game_scene_panel.Visible = true;

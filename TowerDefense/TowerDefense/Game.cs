@@ -21,13 +21,14 @@ namespace TowerDefense
         private Wave currentWave;
         private double last_t; //last recorded time (s)
 
+        public Level Level { get { return level; } }
         public int BaseHP { get { return baseHP; } }
         public int Money { get { return money; } }
         public int CurrentWave { get { return currentWaveIndex; } }
 
         private System.DateTime currentTime = new System.DateTime();
 
-        Game(string levelPath)
+        public Game(string levelPath)
         {
             level = new Level(levelPath);
         }
