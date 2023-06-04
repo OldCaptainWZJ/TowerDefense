@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -60,6 +61,11 @@ namespace TowerDefense
 
             game = new Game("chapter1/1-1.txt");
             level = game.Level;
+
+            timer1.Start();
+
+            Thread thread = new Thread(() => { game.waveRun(this); });
+            thread.Start();
 
             //加载游戏界面的panel
             game_scene_panel.Visible = true;
@@ -152,5 +158,13 @@ namespace TowerDefense
             g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
         }
 
+        public void waveCallback(int val)
+        {
+            timer1.Stop();
+
+            //callback: 0:failed, 1:wave success, 2:level complete
+            throw new NotImplementedException();
+            //TODO
+        }
     }
 }

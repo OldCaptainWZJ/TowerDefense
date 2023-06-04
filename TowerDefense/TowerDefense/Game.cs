@@ -19,21 +19,21 @@ namespace TowerDefense
         private bool[,] occupied;
         private int currentWaveIndex = 0;
         private Wave currentWave;
-        private double last_t; //last recorded time (s)
 
         public Level Level { get { return level; } }
         public int BaseHP { get { return baseHP; } }
         public int Money { get { return money; } }
         public int CurrentWave { get { return currentWaveIndex; } }
 
-        private System.DateTime currentTime = new System.DateTime();
+        private DateTime now_t;
+        private DateTime last_t;
 
         public Game(string levelPath)
         {
             level = new Level(levelPath);
         }
 
-        public int waveRun() //return 0:failed, 1:wave success, 2:level complete
+        public void waveRun(GameForm form)
         {
             bool flag = true;
 
@@ -46,13 +46,14 @@ namespace TowerDefense
             enemies.Add(currentWave.enemies[0]);
             enemies[0].initPosition(level.path[0]);
 
-            double start_t = currentTime.Millisecond / 1000.0;
+            now_t = DateTime.Now;
+            DateTime start_t = now_t;
             last_t = start_t;
 
             while (flag)
             {
-                double now_t = currentTime.Millisecond / 1000.0;
-                double delta_t = now_t - last_t;
+                now_t = System.DateTime.Now;
+                double delta_t = (now_t - last_t).TotalSeconds;
                 last_t = now_t;
 
                 flag = waveProcess(delta_t);
@@ -66,7 +67,7 @@ namespace TowerDefense
                         producedCount++;
                         continue;
                     }
-                    if (currentWave.produceTime[i] <= now_t - start_t)
+                    if (currentWave.produceTime[i] <= (now_t - start_t).TotalSeconds)
                     {
                         enemies.Add(currentWave.enemies[i]);
                         currentWave.produced[i] = true;
@@ -80,9 +81,10 @@ namespace TowerDefense
 
             currentWaveIndex++;
 
-            if (!flag) return 0;
-            if (currentWaveIndex == level.waves.Count) return 2;
-            return 1;
+            //callback: 0:failed, 1:wave success, 2:level complete
+            if (!flag) form.waveCallback(0);
+            if (currentWaveIndex == level.waves.Count) form.waveCallback(2);
+            form.waveCallback(1);
         }
 
         public bool waveProcess(double delta_t) //return false if failed level

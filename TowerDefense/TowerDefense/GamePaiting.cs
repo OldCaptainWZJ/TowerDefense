@@ -12,13 +12,15 @@ namespace TowerDefense
     {
         public void paint(Graphics g)
         {
-            foreach (var t in towers)
+            for (int i = 0; i < towers.Count; i++)
             {
+                Tower t = towers[i];
                 t.paint(g);
             }
 
-            foreach (var e in enemies)
+            for (int i = 0; i < enemies.Count; i++)
             {
+                Enemy e = enemies[i];
                 e.paint(g);
             }
         }

@@ -46,7 +46,7 @@ namespace TowerDefense
             while(waveCount > 0)
             {
                 Wave wave = new Wave();
-                wave.loadWave(reader);
+                wave.loadWave(reader, path);
                 waves.Add(wave);
 
                 waveCount--;
@@ -75,9 +75,9 @@ namespace TowerDefense
         public int n; //number of enemies
         public List<Enemy> enemies = new List<Enemy>(); //list of enemies
         public List<double> produceTime = new List<double>(); //produce time (starting from wave start time)
-        public bool[] produced; //true if enemy is already produced in the level
+        public List<bool> produced = new List<bool>(); //true if enemy is already produced in the level
 
-        public void loadWave(StreamReader reader)
+        public void loadWave(StreamReader reader, List<Tile> path)
         {
             int groups = Convert.ToInt32(reader.ReadLine());
             for(int i=0; i<groups; i++)
@@ -94,8 +94,11 @@ namespace TowerDefense
                 for(int j=0; j<numbers; j++)
                 {
                     Enemy enemy = produceEnemy(enemyType);
+                    enemy.initPath(path);
+                    enemy.initPosition(path.First());
                     enemies.Add(enemy);
                     produceTime.Add(startTime + interval * j);
+                    produced.Add(false);
                 }
             }
         }

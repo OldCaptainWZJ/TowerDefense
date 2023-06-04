@@ -73,19 +73,19 @@ namespace TowerDefense
     
         protected void defaultMove(double delta_t)
         {
-            if (movingStage == path.Count - 1) return;
+            if (this.reachedBase()) return;
 
             double dirX = ((double)(path[movingStage + 1].x - path[movingStage].x)) * GridParams.TileSize;
             double dirY = ((double)(path[movingStage + 1].y - path[movingStage].y)) * GridParams.TileSize;
 
-            pos_x += speed * dirX;
-            pos_y += speed * dirY;
+            pos_x += speed * delta_t * dirX;
+            pos_y += speed * delta_t * dirY;
 
             if (!InSegment(pos_x, pos_y, path[movingStage], path[movingStage + 1]))
             {
                 movingStage++;
                 
-                if (movingStage == path.Count - 1) return;
+                if (this.reachedBase()) return;
 
                 double exceededX = Math.Abs(pos_x - ((double)path[movingStage].x) * GridParams.TileSize);
                 double exceededY = Math.Abs(pos_y - ((double)path[movingStage].y) * GridParams.TileSize);
@@ -99,12 +99,11 @@ namespace TowerDefense
 
         private bool InSegment(double x, double y, Tile a, Tile b)
         {
-            double ax = ((double)a.x) * GridParams.TileSize;
-            double ay = ((double)a.y) * GridParams.TileSize;
-            double bx = ((double)b.x) * GridParams.TileSize;
-            double by = ((double)b.y) * GridParams.TileSize;
-            double eps = 1e-5;
-            if (ax - bx > eps)
+            double ax = ((double)a.x) * GridParams.TileSize + GridParams.StartX;
+            double ay = ((double)a.y) * GridParams.TileSize + GridParams.StartY;
+            double bx = ((double)b.x) * GridParams.TileSize + GridParams.StartX;
+            double by = ((double)b.y) * GridParams.TileSize + GridParams.StartY;
+            if (a.x != b.x)
             {
                 if (x < Math.Min(ax, bx)) return false;
                 if (x > Math.Max(ax, bx)) return false;
