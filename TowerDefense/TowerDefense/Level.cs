@@ -16,7 +16,7 @@ namespace TowerDefense
 
         public Level(string levelPath)
         {
-            string filePath = Application.StartupPath + levelPath;
+            string filePath = Application.StartupPath + "/resource/games_config/" + levelPath;
             loadLevel(filePath);
         }
 
@@ -88,7 +88,7 @@ namespace TowerDefense
                 double startTime = Convert.ToDouble(strings[0]);
                 int enemyType = Convert.ToInt32(strings[1]);
                 int numbers = Convert.ToInt32(strings[2]);
-                double interval = Convert.ToInt32(strings[3]);
+                double interval = Convert.ToDouble(strings[3]);
 
                 n += numbers;
                 for(int j=0; j<numbers; j++)
