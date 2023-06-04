@@ -62,8 +62,8 @@ namespace TowerDefense
         }
         public void initPosition(Tile startTile)
         {
-            pos_x = GridParams.StartX + ((double)startTile.x) * GridParams.TileSize;
-            pos_y = GridParams.StartY + ((double)startTile.y) * GridParams.TileSize;
+            pos_x = ((double)startTile.x) * GridParams.TileSize;
+            pos_y = ((double)startTile.y) * GridParams.TileSize;
         }
         public abstract void move(double delta_t); //calculate movement
         public abstract void statusEffect(double delta_t); //calculate status effects

@@ -40,13 +40,6 @@ namespace TowerDefense
             help_panel.Controls.Add(help_content_textBox);
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (game_scene_panel.Visible)
-            {
-                game_scene_panel.Invalidate();
-            }
-        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
@@ -62,7 +55,7 @@ namespace TowerDefense
             game = new Game("chapter1/1-1.txt");
             level = game.Level;
 
-            timer1.Start();
+            //timer1.Start();
 
             Thread thread = new Thread(() => { game.waveRun(this); });
             thread.Start();
@@ -88,7 +81,6 @@ namespace TowerDefense
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-           
 
         }
 
@@ -156,12 +148,12 @@ namespace TowerDefense
             // 将场景图片绘制到屏幕上
             Graphics g = e.Graphics;
             g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+
+            this.Invalidate();
         }
 
         public void waveCallback(int val)
         {
-            timer1.Stop();
-
             //callback: 0:failed, 1:wave success, 2:level complete
             throw new NotImplementedException();
             //TODO
