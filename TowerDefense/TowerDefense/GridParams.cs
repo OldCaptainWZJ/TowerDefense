@@ -17,6 +17,7 @@ namespace TowerDefense
         public const int PaddingSize = 0;
         public const int HPBarHeight = 5;
         public const int HPBarDist2Enemy = 1;
-
+        public const int MoneyStartX = 160;
+        public const int MoneyStartY = 40;
     }
 }

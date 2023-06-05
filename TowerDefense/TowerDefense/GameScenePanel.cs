@@ -13,6 +13,7 @@ namespace TowerDefense
     {
         Game game;
         Image gameSceneImage;
+        Image gamePropertiesImage;
 
         int selected;
         int mouseX;
@@ -29,6 +30,7 @@ namespace TowerDefense
             Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             DoubleBuffered = true;
             gameSceneImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            gamePropertiesImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
             List<GameCharacter> characters = new List<GameCharacter>(); // 获取你的角色列表
             GameCharacter character1 = new GameCharacter();
@@ -100,18 +102,36 @@ namespace TowerDefense
         {
             // 将游戏场景绘制到一张图片上
             Graphics sceneG = Graphics.FromImage(gameSceneImage);
+            Graphics propertiesG = Graphics.FromImage(gamePropertiesImage);
 
-            // 记录路径
+            // 绘制网格
+            paintGrid(sceneG);
+
+            // 绘制塔与敌人
+            game.paint(sceneG);
+
+            // 绘制游戏属性 
+            paintProperties(propertiesG);
+
+            // 将场景图片绘制到屏幕上
+            Graphics g = e.Graphics;
+            g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+            g.DrawImage(gamePropertiesImage, GridParams.StartX, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
+        }
+
+        private void paintGrid(Graphics g)
+        {
+             // 记录路径
             bool[,] roadMark = new bool[GridParams.GridSizeX, GridParams.GridSizeY];
 
             // 绘制起点终点
             if (game.Level.path.Count > 0)
             {
                 roadMark[game.Level.path.First().x, game.Level.path.First().y] = true;
-                sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * game.Level.path.First().x, GridParams.TileSize * game.Level.path.First().y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.entrance, GridParams.TileSize * game.Level.path.First().x, GridParams.TileSize * game.Level.path.First().y, GridParams.TileSize, GridParams.TileSize);
 
                 roadMark[game.Level.path.Last().x, game.Level.path.Last().y] = true;
-                sceneG.DrawImage(Resource1.exit, GridParams.TileSize * game.Level.path.Last().x, GridParams.TileSize * game.Level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.exit, GridParams.TileSize * game.Level.path.Last().x, GridParams.TileSize * game.Level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制路径
@@ -119,7 +139,7 @@ namespace TowerDefense
             {
                 var tile = game.Level.path[i];
                 roadMark[tile.x, tile.y] = true;
-                sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制其他网格
@@ -129,17 +149,20 @@ namespace TowerDefense
                 {
                     if (!roadMark[i, j])
                     {
-                        sceneG.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
+                        g.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
                     }
                 }
             }
+        }
 
-            // 绘制塔与敌人
-            game.paint(sceneG);
-
-            // 将场景图片绘制到屏幕上
-            Graphics g = e.Graphics;
-            g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+        private void paintProperties(Graphics g)
+        {
+            SolidBrush clearBrush = new SolidBrush(Color.IndianRed);
+            SolidBrush propBrush = new SolidBrush(Color.Black);
+            Font propFont = new Font("宋体", 24);
+            g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
+            g.DrawString("金钱: " + game.Money.ToString(), propFont, propBrush, 10, 20);
+            g.DrawString(String.Format("波数: {0:d}/{0:d}", game.CurrentWave, game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
         private void Item_Click(object sender, EventArgs e)
