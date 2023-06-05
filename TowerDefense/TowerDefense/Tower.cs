@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TowerDefense
 {
+    enum TowerType
+    {
+        Default = 0
+    }
     internal abstract partial class Tower
     {
         protected SelectMethod selectMethod;
@@ -15,6 +19,8 @@ namespace TowerDefense
         protected Tile position;
         protected double maxCooldown;
         protected double cooldown;
+
+        public int Cost { get { return cost; } }
 
         public void initCooldown()
         {
@@ -43,6 +49,12 @@ namespace TowerDefense
         protected void continuousSelect(List<Enemy> enemies)
         {
             selectedEnemies = selectMethod.select(enemies);
+        }
+
+        public static Tower produceTower(int type, Tile tile)
+        {
+            if (type == (int)TowerType.Default) return new DefaultTower(tile);
+            return new DefaultTower(tile); // should not reach this line
         }
     }
 

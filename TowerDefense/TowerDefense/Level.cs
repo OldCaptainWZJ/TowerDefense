@@ -93,7 +93,7 @@ namespace TowerDefense
                 n += numbers;
                 for(int j=0; j<numbers; j++)
                 {
-                    Enemy enemy = produceEnemy(enemyType);
+                    Enemy enemy = Enemy.produceEnemy(enemyType);
                     enemy.initPath(path);
                     enemy.initPosition(path.First());
                     enemies.Add(enemy);
@@ -101,12 +101,6 @@ namespace TowerDefense
                     produced.Add(false);
                 }
             }
-        }
-
-        private Enemy produceEnemy(int enemyType)
-        {
-            if (enemyType == (int)EnemyType.Basic) return new BasicEnemy();
-            return new BasicEnemy(); //enemyType wrong
         }
     }
 }
