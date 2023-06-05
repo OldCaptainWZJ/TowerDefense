@@ -15,7 +15,7 @@ namespace TowerDefense
             maxCooldown = 1.0;
 
             selectMethod = new SniperSelect(3.0, position);
-            damageMethod = new NormalDamage(4.0);
+            damageMethod = new NormalDamage(5.0);
         }
 
         public override void select(List<Enemy> enemies, double delta_t)
@@ -35,7 +35,7 @@ namespace TowerDefense
             maxCooldown = 1.3;
 
             selectMethod = new SniperSelect(3.5, position);
-            damageMethod = new FreezeSingleDamage(3.0);
+            damageMethod = new FreezeSingleDamage(4.0);
         }
 
         public override void select(List<Enemy> enemies, double delta_t)
