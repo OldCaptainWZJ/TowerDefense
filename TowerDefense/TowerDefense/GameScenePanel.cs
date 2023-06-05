@@ -13,6 +13,15 @@ namespace TowerDefense
     {
         Game game;
         Image gameSceneImage;
+        Image gamePropertiesImage;
+
+        Panel towerListPanel;
+        List<Label> towerListLabels;
+        List<PictureBox> towerListPictureBoxes;
+
+        const int towerItemPadding = 10;
+        const int towerItemWidth = 160;
+        const int towerItemHeight = 50 + 2 * towerItemPadding;
 
         int selected;
         int mouseX;
@@ -20,75 +29,120 @@ namespace TowerDefense
 
         public GameScenePanel()
         {
+            initPanel();       
+            initDrawImages();
+            initButtons();
+            initTowerList();
+        }
+
+        private void initPanel()
+        {
             BackColor = System.Drawing.Color.IndianRed;
             Location = new System.Drawing.Point(3, 3);
             Name = "game_scene_panel";
             Size = new System.Drawing.Size(1181, 854);
             TabIndex = 6;
             Visible = false;
-            Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            VisibleChanged += new EventHandler(onVisible);
+            Paint += new System.Windows.Forms.PaintEventHandler(onPaint);
             DoubleBuffered = true;
+
+        }
+
+        private void initDrawImages()
+        {
             gameSceneImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            gamePropertiesImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+        }
 
-            List<GameCharacter> characters = new List<GameCharacter>(); // 获取你的角色列表
-            GameCharacter character1 = new GameCharacter();
-            GameCharacter character2 = new GameCharacter();
-            GameCharacter character3 = new GameCharacter();
-            character1.Icon = Resource1.pig;
-            character2.Icon = Resource1.road;
-            character3.Icon = Resource1.tower;
-            character1.Name = "character 1";
-            character2.Name = "character 2";
-            character3.Name = "character 3";
-            characters.Add(character1);
-            characters.Add(character2);
-            characters.Add(character3);
+        private void initButtons()
+        {
+            Button nextLevelButton = new Button();
+            nextLevelButton.Text = "下一波敌人";
+            nextLevelButton.AutoSize = false;
+            nextLevelButton.Width = 160;
+            nextLevelButton.Height = 50;
+            nextLevelButton.Location = new Point(0, 10);
+            nextLevelButton.BackColor = Color.AliceBlue;
+            nextLevelButton.Click += nextLevelButtonClick;
+            Controls.Add(nextLevelButton);
 
-            int startY = 0;
-            int startX = 0;
-            int padding = 10; // 间隔大小
-            int itemHeight = 50 + 2 * padding; // 图像高度 + 上下间隔
-            int itemWidth = 160; // 宽度设定为160像素
+            Button exitButton = new Button();
+            exitButton.Text = "退出";
+            exitButton.AutoSize = false;
+            exitButton.Width = 160;
+            exitButton.Height = 50;
+            exitButton.Location = new Point(0, 70);
+            exitButton.BackColor = Color.AliceBlue;
+            exitButton.Click += exitButtonClick;
+            Controls.Add(exitButton);
+        }
 
-            Panel panel = new Panel();
-            panel.Size = new Size(itemWidth, this.Height - 120); // 假设你的窗体高度足够大
-            panel.Location = new Point(0, 120);
-            panel.AutoScroll = true; // 如果内容超出Panel的大小，则自动显示滚动条
-
-            // 遍历每一个角色，创建PictureBox和Label，并将它们添加到窗体中
-            foreach (var character in characters)
-            {
-                // 创建并设置Label
-                Label lbl = new Label();
-                lbl.Text = character.Name;
-                lbl.AutoSize = false; // 不自动调整大小，将其设定为指定宽度
-                lbl.Width = itemWidth - 50 - 3 * padding; // 预留出图片和额外的padding的空间
-                lbl.Location = new Point(startX + padding, startY + padding + (50 - lbl.Height) / 2); // 使得label和图片在同一行中居中
-                lbl.Click += Item_Click; // 添加点击事件处理器
-
-                // 创建并设置PictureBox
-                PictureBox pb = new PictureBox();
-                pb.Name = character.Name;
-                pb.Image = character.Icon;
-                pb.SizeMode = PictureBoxSizeMode.StretchImage;
-                pb.Height = 50;
-                pb.Width = 50;
-                pb.Location = new Point(lbl.Width + 2 * padding, startY + padding); // 在label的右边绘制图片
-                pb.Click += Item_Click; // 添加点击事件处理器
-
-                // 将PictureBox和Label添加到Panel中
-                panel.Controls.Add(lbl);
-                panel.Controls.Add(pb);
-
-                // 更新下一个item的开始Y坐标
-                startY += itemHeight;
-            }
+        private void initTowerList()
+        {
+            towerListPanel = new Panel();
+            towerListPanel.Size = new Size(towerItemWidth, this.Height - 120); // 假设你的窗体高度足够大
+            towerListPanel.Location = new Point(0, 120);
+            towerListPanel.AutoScroll = true; // 如果内容超出Panel的大小，则自动显示滚动条
+            Controls.Add(towerListPanel);
 
             MouseMove += getMousePosition;
             Click += placeTower; //Add Place Tower Event
 
-            // 将Panel添加到窗体中
-            Controls.Add(panel);
+            towerListLabels=new List<Label>();
+            towerListPictureBoxes=new List<PictureBox>();
+        }
+
+        public void onVisible(object sender, EventArgs e)
+        {
+            if(Visible)
+            {
+                int startX = 0;
+                int startY = 0;
+
+                foreach (var towerIdx in game.Level.towerSelection)
+                {
+                    var tower = Tower.produceTower(towerIdx, new Tile(0, 0));
+
+                    Label lbl = new Label();
+                    lbl.Text = tower.getName();
+                    lbl.AutoSize = false; // 不自动调整大小，将其设定为指定宽度
+                    lbl.Width = towerItemWidth - 50 - 3 * towerItemPadding; // 预留出图片和额外的padding的空间
+                    lbl.Location = new Point(startX + towerItemPadding, startY + towerItemPadding + (50 - lbl.Height) / 2); // 使得label和图片在同一行中居中
+                    lbl.Click += Item_Click; // 添加点击事件处理器
+                    towerListPanel.Controls.Add(lbl);
+                    towerListLabels.Add(lbl);
+                    
+                     // 创建并设置PictureBox
+                    PictureBox pb = new PictureBox();
+                    pb.Name = tower.getName();
+                    pb.Image = tower.getTexture();
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pb.Height = 50;
+                    pb.Width = 50;
+                    pb.Location = new Point(lbl.Width + 2 * towerItemPadding, startY + towerItemPadding); // 绘制图片
+                    pb.Click += Item_Click; // 添加点击事件处理器
+                    towerListPanel.Controls.Add(pb);
+                    towerListPictureBoxes.Add(pb);
+
+                    startY += towerItemHeight;
+                }
+            }
+            else
+            {
+                foreach (var label in towerListLabels)
+                {
+                    Controls.Remove(label);
+                }
+
+                foreach (var pb in towerListPictureBoxes)
+                {
+                    Controls.Remove(pb);
+                }
+
+                towerListLabels.Clear();
+                towerListPictureBoxes.Clear();
+            }
         }
 
         public void SetGame(Game game)
@@ -96,22 +150,48 @@ namespace TowerDefense
             this.game = game;
         }
 
-        public void OnPaint(object sender, PaintEventArgs e)
+        public void nextLevelButtonClick(object sender, EventArgs e)
+        {
+        }
+
+        public void exitButtonClick(object sender, EventArgs e)
+        {
+        }
+
+        public void onPaint(object sender, PaintEventArgs e)
         {
             // 将游戏场景绘制到一张图片上
             Graphics sceneG = Graphics.FromImage(gameSceneImage);
+            Graphics propertiesG = Graphics.FromImage(gamePropertiesImage);
 
-            // 记录路径
+            // 绘制网格
+            paintGrid(sceneG);
+
+            // 绘制塔与敌人
+            game.paint(sceneG);
+
+            // 绘制游戏属性 
+            paintProperties(propertiesG);
+
+            // 将场景图片绘制到屏幕上
+            Graphics g = e.Graphics;
+            g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+            g.DrawImage(gamePropertiesImage, GridParams.StartX, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
+        }
+
+        private void paintGrid(Graphics g)
+        {
+             // 记录路径
             bool[,] roadMark = new bool[GridParams.GridSizeX, GridParams.GridSizeY];
 
             // 绘制起点终点
             if (game.Level.path.Count > 0)
             {
                 roadMark[game.Level.path.First().x, game.Level.path.First().y] = true;
-                sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * game.Level.path.First().x, GridParams.TileSize * game.Level.path.First().y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.entrance, GridParams.TileSize * game.Level.path.First().x, GridParams.TileSize * game.Level.path.First().y, GridParams.TileSize, GridParams.TileSize);
 
                 roadMark[game.Level.path.Last().x, game.Level.path.Last().y] = true;
-                sceneG.DrawImage(Resource1.exit, GridParams.TileSize * game.Level.path.Last().x, GridParams.TileSize * game.Level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.exit, GridParams.TileSize * game.Level.path.Last().x, GridParams.TileSize * game.Level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制路径
@@ -119,7 +199,7 @@ namespace TowerDefense
             {
                 var tile = game.Level.path[i];
                 roadMark[tile.x, tile.y] = true;
-                sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
+                g.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
             }
 
             // 绘制其他网格
@@ -129,17 +209,20 @@ namespace TowerDefense
                 {
                     if (!roadMark[i, j])
                     {
-                        sceneG.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
+                        g.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
                     }
                 }
             }
+        }
 
-            // 绘制塔与敌人
-            game.paint(sceneG);
-
-            // 将场景图片绘制到屏幕上
-            Graphics g = e.Graphics;
-            g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
+        private void paintProperties(Graphics g)
+        {
+            SolidBrush clearBrush = new SolidBrush(Color.IndianRed);
+            SolidBrush propBrush = new SolidBrush(Color.Black);
+            Font propFont = new Font("宋体", 24);
+            g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
+            g.DrawString("金钱: " + game.Money.ToString(), propFont, propBrush, 10, 20);
+            g.DrawString(String.Format("波数: {0:d}/{0:d}", game.CurrentWave, game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
         private void Item_Click(object sender, EventArgs e)
