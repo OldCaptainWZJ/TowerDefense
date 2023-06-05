@@ -43,8 +43,6 @@ namespace TowerDefense
             }
 
             currentWave = level.waves[currentWaveIndex];
-            enemies.Add(currentWave.enemies[0]);
-            enemies[0].initPosition(level.path[0]);
 
             now_t = DateTime.Now;
             DateTime start_t = now_t;

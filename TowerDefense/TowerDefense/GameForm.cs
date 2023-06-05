@@ -149,7 +149,7 @@ namespace TowerDefense
             Graphics g = e.Graphics;
             g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
 
-            this.Invalidate();
+            game_scene_panel.Invalidate();
         }
 
         public void waveCallback(int val)
