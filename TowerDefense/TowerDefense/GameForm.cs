@@ -221,6 +221,8 @@ namespace TowerDefense
             game_scene_panel.Controls.Add(panel);
             
             this.Invalidate();
+
+            game_scene_panel.Invalidate();
         }
         private void Item_Click(object sender, EventArgs e)
         {
