@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="DamageMethod.cs" />
     <Compile Include="Enemy.cs" />
-    <Compile Include="GamePaiting.cs" />
+    <Compile Include="GamePainting.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
