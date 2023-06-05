@@ -32,6 +32,26 @@ namespace TowerDefense
             gameSceneImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             gamePropertiesImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
+            Button nextLevelButton = new Button();
+            nextLevelButton.Text = "下一波敌人";
+            nextLevelButton.AutoSize = false;
+            nextLevelButton.Width = 160;
+            nextLevelButton.Height = 50;
+            nextLevelButton.Location = new Point(0, 10);
+            nextLevelButton.BackColor = Color.AliceBlue;
+            nextLevelButton.Click += nextLevelButtonClick;
+            Controls.Add(nextLevelButton);
+
+            Button exitButton = new Button();
+            exitButton.Text = "退出";
+            exitButton.AutoSize = false;
+            exitButton.Width = 160;
+            exitButton.Height = 50;
+            exitButton.Location = new Point(0, 70);
+            exitButton.BackColor = Color.AliceBlue;
+            exitButton.Click += exitButtonClick;
+            Controls.Add(exitButton);
+
             List<GameCharacter> characters = new List<GameCharacter>(); // 获取你的角色列表
             GameCharacter character1 = new GameCharacter();
             GameCharacter character2 = new GameCharacter();
@@ -96,6 +116,14 @@ namespace TowerDefense
         public void SetGame(Game game)
         {
             this.game = game;
+        }
+
+        public void nextLevelButtonClick(object sender, EventArgs e)
+        {
+        }
+
+        public void exitButtonClick(object sender, EventArgs e)
+        {
         }
 
         public void OnPaint(object sender, PaintEventArgs e)
