@@ -19,7 +19,12 @@ namespace TowerDefense
 
     enum EnemyType
     {
-        Basic = 0
+        Basic = 0,
+        Leopard = 1,
+        Toad = 2,
+        Snail = 3,
+        Mouse = 4,
+        Scorpion = 5
     }
 
     internal abstract partial class Enemy
@@ -54,7 +59,7 @@ namespace TowerDefense
         }
         public bool reachedBase()
         {
-            if (movingStage == path.Count-1) return true;
+            if (movingStage >= path.Count-1) return true;
             return false;
         }
 
@@ -152,6 +157,11 @@ namespace TowerDefense
         public static Enemy produceEnemy(int enemyType)
         {
             if (enemyType == (int)EnemyType.Basic) return new BasicEnemy();
+            if (enemyType == (int)EnemyType.Leopard) return new Leopard();
+            if (enemyType == (int)EnemyType.Toad) return new Toad();
+            if (enemyType == (int)EnemyType.Snail) return new Snail();
+            if (enemyType == (int)EnemyType.Mouse) return new Mouse();
+            if (enemyType == (int)EnemyType.Scorpion) return new Scorpion();
             return new BasicEnemy(); //enemyType wrong
         }
     }

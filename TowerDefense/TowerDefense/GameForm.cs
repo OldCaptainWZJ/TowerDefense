@@ -92,16 +92,7 @@ namespace TowerDefense
             //start_menu_panel.Dispose();
             start_menu_panel.Visible = false;
 
-            game = new Game("chapter1/1-1.txt");
-            gameScenePanel.SetGame(game);
-
-            timer1.Start();
-
-            Thread thread = new Thread(() => { game.waveRun(this); });
-            thread.Start();
-
-            //加载游戏界面的panel
-            gameScenePanel.Visible = true;
+            StartGame();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -408,7 +399,18 @@ namespace TowerDefense
         }
         void StartGame()
         {
+            string levelPath = chapters[currentChapterIndex - 1] + "/" + levels[currentLevelIndex - 1] + ".txt";
 
+            game = new Game(levelPath);
+            gameScenePanel.SetGame(game);
+
+            timer1.Start();
+
+            Thread thread = new Thread(() => { game.waveRun(this); });
+            thread.Start();
+
+            //加载游戏界面的panel
+            gameScenePanel.Visible = true;
         }
 
 
