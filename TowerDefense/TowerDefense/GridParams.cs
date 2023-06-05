@@ -15,6 +15,8 @@ namespace TowerDefense
         public const int StartY = 120; //starting position (top-left) for painting grid
         public const int FormTitleSize=28;
         public const int PaddingSize = 0;
+        public const int HPBarHeight = 5;
+        public const int HPBarDist2Enemy = 1;
 
     }
 }
