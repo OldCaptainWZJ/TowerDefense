@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.start_menu_panel = new System.Windows.Forms.Panel();
             this.help_panel = new System.Windows.Forms.Panel();
@@ -40,7 +39,6 @@
             this.select_level_button = new System.Windows.Forms.Button();
             this.help_button = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.start_menu_panel.SuspendLayout();
             this.help_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).BeginInit();
@@ -176,10 +174,6 @@
             this.exit_button.UseVisualStyleBackColor = false;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -208,7 +202,6 @@
         private System.Windows.Forms.TextBox help_content_textBox;
         private System.Windows.Forms.Button help_to_start_menu_button;
         private System.Windows.Forms.Panel game_scene_panel;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 
