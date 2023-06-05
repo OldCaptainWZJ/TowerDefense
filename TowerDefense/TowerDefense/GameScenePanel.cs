@@ -80,7 +80,7 @@ namespace TowerDefense
             GameCharacter character1 = new GameCharacter();
             GameCharacter character2 = new GameCharacter();
             GameCharacter character3 = new GameCharacter();
-            character1.Icon = Resource1.tile;
+            character1.Icon = Resource1.pig;
             character2.Icon = Resource1.road;
             character3.Icon = Resource1.tower;
             character1.Name = "character 1";

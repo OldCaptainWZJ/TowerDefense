@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using Button = System.Windows.Forms.Button;
 
 namespace TowerDefense
 {
@@ -20,6 +21,22 @@ namespace TowerDefense
     {
         private Game game;
         private GameScenePanel gameScenePanel;
+        List<string> chapters;
+        int currentChapterIndex;
+        private PictureBox chapterImage;
+        private Label chapterTitle;
+        private Button confirmButton;
+        private Button prevButton;
+        private Button nextButton;
+        private Panel chapterPanel;
+        private Panel levelPanel;
+        List<string> levels;
+        int currentLevelIndex;
+        PictureBox levelImage;
+        Label levelTitle;
+        Button selectButton;
+        Button prevLevelButton;
+        Button nextLevelButton;
 
         public GameForm()
         {
@@ -84,7 +101,252 @@ namespace TowerDefense
             //start_menu_panel.Parent.Controls.Remove(start_menu_panel);
             //start_menu_panel.Dispose();
             start_menu_panel.Visible = false;
+
+            chapterPanel = new Panel()
+            {
+                Size = new Size(960, 720),
+                BackColor = Color.LightBlue,
+            };
+
+            chapterImage = new PictureBox()
+            {
+                Size = new Size(400, 300),
+                Location = new Point((chapterPanel.Width - 400) / 2, (chapterPanel.Height - 300) / 2),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+            };
+
+            chapterTitle = new Label()
+            {
+                AutoSize = false,
+                Width = chapterPanel.Width,
+                Height = 50,
+                Location = new Point(0, chapterImage.Bottom),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Serial",15,FontStyle.Bold)
+            };
+
+
+            confirmButton = new System.Windows.Forms.Button()
+            {
+                Width = 100,
+                Height = 30,
+                Location = new Point((chapterPanel.Width - 100) / 2, chapterTitle.Bottom + 10),
+                Text = "Confirm",
+                Font=new Font("Serial", 10, FontStyle.Bold)
+            };
+            confirmButton.Click += ConfirmButton_Click;
+
+            prevButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(10, (chapterPanel.Height - 30) / 2),
+                Text = "<",
+            };
+            prevButton.Click += PrevButton_Click;
+
+            nextButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(chapterPanel.Width - 60, (chapterPanel.Height - 30) / 2),
+                Text = ">",
+            };
+            
+            nextButton.Click += NextButton_Click;
+            Button back_to_start_button = new Button()
+            {
+                Location = new Point(850, 30),
+                Text = "BACK"
+            };
+            back_to_start_button.Click += Back_To_Start_Button_Click;
+
+            chapterPanel.Controls.Add(chapterImage);
+            chapterPanel.Controls.Add(chapterTitle);
+            chapterPanel.Controls.Add(confirmButton);
+            chapterPanel.Controls.Add(prevButton);
+            chapterPanel.Controls.Add(nextButton);
+            chapterPanel.Controls.Add(back_to_start_button);
+
+            this.Controls.Add(chapterPanel);
+
+            // Load the list of chapters from the Resource folder
+            chapters = Directory.GetDirectories("resource/games_config").ToList();
+            for(int i = 0; i < chapters.Count; i++)
+            {
+                chapters[i] =chapters[i].Substring(22);
+            }
+
+            // Set the current chapter to the first one
+            currentChapterIndex = 1;
+            LoadChapter(currentChapterIndex);
             //加载选关页面的panel
+        }
+
+        private void Back_To_Start_Button_Click(object sender, EventArgs e)
+        {
+            start_menu_panel.Visible=true;
+            chapterPanel.Visible=false;
+        }
+
+        private void LoadChapter(int index)
+        {
+            if (index <= 0 || index > chapters.Count)
+                return;
+
+            string chapter = chapters[index-1];
+            string imageName = $"{chapter}_image.png";
+            Debug.WriteLine(imageName);
+            //Debug.WriteLine(chapterImage);
+            chapterImage.Image = Image.FromFile(Path.Combine("resource/games_config", imageName));
+            chapterTitle.Text = chapter;
+
+            prevButton.Visible = (index != 1);
+            nextButton.Visible = (index != chapters.Count);
+        }
+
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {
+            chapterPanel.Visible = false;
+            levelPanel = new Panel()
+            {
+                Size = new Size(960, 720),
+                BackColor = Color.LightBlue,
+                Visible = false,
+            };
+            levelPanel.Visible = true;
+
+            levelImage = new PictureBox()
+            {
+                Size = new Size(400, 300),
+                Location = new Point((levelPanel.Width - 400) / 2, (levelPanel.Height - 300) / 2),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+            };
+
+            levelTitle = new Label()
+            {
+                AutoSize = false,
+                Width = levelPanel.Width,
+                Height = 30,
+                Location = new Point(0, levelImage.Bottom),
+                TextAlign = ContentAlignment.MiddleCenter,
+            };
+
+            selectButton = new Button()
+            {
+                Width = 100,
+                Height = 30,
+                Location = new Point((levelPanel.Width - 100) / 2, levelTitle.Bottom + 10),
+                Text = "Select",
+            };
+            selectButton.Click += SelectButton_Click;
+
+            prevLevelButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(10, (levelPanel.Height - 30) / 2),
+                Text = "<",
+            };
+            prevLevelButton.Click += PrevLevelButton_Click;
+
+            nextLevelButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(levelPanel.Width - 60, (levelPanel.Height - 30) / 2),
+                Text = ">",
+            };
+            nextLevelButton.Click += NextLevelButton_Click;
+
+            Button back_to_chapter_button = new Button()
+            {
+                Location = new Point(850, 30),
+                Text = "BACK"
+            };
+            back_to_chapter_button.Click += Back_To_Chapter_Button_Click;
+
+            levelPanel.Controls.Add(levelImage);
+            levelPanel.Controls.Add(levelTitle);
+            levelPanel.Controls.Add(selectButton);
+            levelPanel.Controls.Add(prevLevelButton);
+            levelPanel.Controls.Add(nextLevelButton);
+            levelPanel.Controls.Add(back_to_chapter_button);
+
+            this.Controls.Add(levelPanel);
+
+            levels = Directory.GetFiles("resource/games_config/" + chapters[currentChapterIndex-1],"*",SearchOption.AllDirectories).ToList();
+            Debug.WriteLine(levels);
+            for (int i = 0; i < levels.Count; i++)
+            {
+                levels[i] = levels[i].Substring(31);
+            }
+
+            // Set the current level to the first one
+            currentLevelIndex = 1;
+            LoadLevel(currentLevelIndex);
+        }
+
+        private void Back_To_Chapter_Button_Click(object sender, EventArgs e)
+        {
+            chapterPanel.Visible = true;
+            levelPanel.Visible = false;
+        }
+
+        private void LoadLevel(int index)
+        {
+            if (index < 1 || index > levels.Count)
+                return;
+
+            string level = levels[index-1];
+            string imageName = $"{chapters[currentChapterIndex-1]}_image.png";
+
+            levelImage.Image = Image.FromFile(Path.Combine("resource/games_config",imageName));
+            levelTitle.Text = level;
+
+            prevLevelButton.Visible = (index != 1);
+            nextLevelButton.Visible = (index != levels.Count);
+        }
+
+        private void SelectButton_Click(object sender, EventArgs e)
+        {
+            // Implement your event handler here
+        }
+
+        private void PrevLevelButton_Click(object sender, EventArgs e)
+        {
+            if (currentLevelIndex > 1)
+            {
+                currentLevelIndex--;
+                LoadLevel(currentLevelIndex);
+            }
+        }
+
+        private void NextLevelButton_Click(object sender, EventArgs e)
+        {
+            if (currentLevelIndex < levels.Count )
+            {
+                currentLevelIndex++;
+                LoadLevel(currentLevelIndex);
+            }
+        }
+
+        private void PrevButton_Click(object sender, EventArgs e)
+        {
+            if (currentChapterIndex > 1)
+            {
+                currentChapterIndex--;
+                LoadChapter(currentChapterIndex);
+            }
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (currentChapterIndex < chapters.Count )
+            {
+                currentChapterIndex++;
+                LoadChapter(currentChapterIndex);
+            }
         }
 
         private void exit_button_Click(object sender, EventArgs e)
@@ -95,7 +357,7 @@ namespace TowerDefense
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void help_button_Click(object sender, EventArgs e)
