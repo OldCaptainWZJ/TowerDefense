@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.start_menu_panel = new System.Windows.Forms.Panel();
             this.help_panel = new System.Windows.Forms.Panel();
@@ -39,6 +40,7 @@
             this.select_level_button = new System.Windows.Forms.Button();
             this.help_button = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.start_menu_panel.SuspendLayout();
             this.help_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).BeginInit();
@@ -77,7 +79,6 @@
             this.game_scene_panel.Size = new System.Drawing.Size(1181, 854);
             this.game_scene_panel.TabIndex = 6;
             this.game_scene_panel.Visible = false;
-            this.game_scene_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.game_scene_panel_Paint);
             // 
             // help_to_start_menu_button
             // 
@@ -174,6 +175,11 @@
             this.exit_button.UseVisualStyleBackColor = false;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 13;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -183,6 +189,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameForm";
             this.Text = "Tower Defense";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameForm_Paint);
             this.start_menu_panel.ResumeLayout(false);
             this.help_panel.ResumeLayout(false);
             this.help_panel.PerformLayout();
@@ -202,6 +209,7 @@
         private System.Windows.Forms.TextBox help_content_textBox;
         private System.Windows.Forms.Button help_to_start_menu_button;
         private System.Windows.Forms.Panel game_scene_panel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
