@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace TowerDefense
 {
@@ -6,6 +8,8 @@ namespace TowerDefense
     {
         public Pig(Tile position)
         {
+            name = "Pig";
+            texture = Resource1.pig;
             this.position = position;
             cost = 100;
             maxCooldown = 1.0;
@@ -24,6 +28,8 @@ namespace TowerDefense
     {
         public Snowball(Tile position)
         {
+            name = "Snowball";
+            texture= Resource1.snowball;
             this.position = position;
             cost = 200;
             maxCooldown = 1.3;
@@ -42,6 +48,8 @@ namespace TowerDefense
     {
         public Napoleon(Tile position)
         {
+            name = "Napoleon";
+            texture = Resource1.napoleon;
             this.position = position;
             cost = 300;
             maxCooldown = 1.5;
@@ -60,6 +68,8 @@ namespace TowerDefense
     {
         public Boxer(Tile position)
         {
+            name = "Boxer";
+            texture = Resource1.boxer;
             this.position = position;
             cost = 300;
             maxCooldown = 5.0;
@@ -78,6 +88,8 @@ namespace TowerDefense
     {
         public Hedgehog(Tile position)
         {
+            name = "Hedgehog";
+            texture = Resource1.hedgehog;
             this.position = position;
             cost = 200;
 

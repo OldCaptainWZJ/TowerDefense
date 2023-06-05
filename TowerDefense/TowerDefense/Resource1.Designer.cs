@@ -63,6 +63,16 @@ namespace TowerDefense {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap boxer {
+            get {
+                object obj = ResourceManager.GetObject("boxer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap enemy {
             get {
                 object obj = ResourceManager.GetObject("enemy", resourceCulture);
@@ -93,10 +103,97 @@ namespace TowerDefense {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap hedgehog {
+            get {
+                object obj = ResourceManager.GetObject("hedgehog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap leopard {
+            get {
+                object obj = ResourceManager.GetObject("leopard", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap mouse {
+            get {
+                object obj = ResourceManager.GetObject("mouse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap napoleon {
+            get {
+                object obj = ResourceManager.GetObject("napoleon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap pig {
             get {
                 object obj = ResourceManager.GetObject("pig", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;root&gt;
+        ///  &lt;!-- 
+        ///    Microsoft ResX Schema 
+        ///    
+        ///    Version 2.0
+        ///    
+        ///    The primary goals of this format is to allow a simple XML format 
+        ///    that is mostly human readable. The generation and parsing of the 
+        ///    various data types are done through the TypeConverter classes 
+        ///    associated with the data types.
+        ///    
+        ///    Example:
+        ///    
+        ///    ... ado.net/XML headers &amp; schema ...
+        ///    &lt;resheader name=&quot;resmimetype&quot;&gt;text/microsoft-resx&lt;/resheader&gt;
+        ///    &lt;resheader n [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        
+        /// <summary>
+        ///   查找类似 //------------------------------------------------------------------------------
+        ///// &lt;auto-generated&gt;
+        /////     此代码由工具生成。
+        /////     运行时版本:4.0.30319.42000
+        /////
+        /////     对此文件的更改可能会导致不正确的行为，并且如果
+        /////     重新生成代码，这些更改将会丢失。
+        ///// &lt;/auto-generated&gt;
+        /////------------------------------------------------------------------------------
+        ///
+        ///namespace TowerDefense {
+        ///    using System;
+        ///    
+        ///    
+        ///    /// &lt;summary&gt;
+        ///    ///   一个强类型的资源类，用于查找本地化的字符串等。
+        ///    /// &lt;/summary&gt;
+        ///    // 此类是由 StronglyTypedResourceBuilder
+        ///    // 类通过类似于 ResGen  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Resource1_Designer {
+            get {
+                return ResourceManager.GetString("Resource1_Designer", resourceCulture);
             }
         }
         
@@ -106,6 +203,36 @@ namespace TowerDefense {
         internal static System.Drawing.Bitmap road {
             get {
                 object obj = ResourceManager.GetObject("road", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap scorpion {
+            get {
+                object obj = ResourceManager.GetObject("scorpion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap snail {
+            get {
+                object obj = ResourceManager.GetObject("snail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap snowball {
+            get {
+                object obj = ResourceManager.GetObject("snowball", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +250,29 @@ namespace TowerDefense {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap toad {
+            get {
+                object obj = ResourceManager.GetObject("toad", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap tower {
             get {
                 object obj = ResourceManager.GetObject("tower", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tower1 {
+            get {
+                object obj = ResourceManager.GetObject("tower1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

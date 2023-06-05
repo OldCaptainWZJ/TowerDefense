@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="resource\boxer.png" />
     <Content Include="resource\games_config\chapter1_image.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -145,7 +146,14 @@
     <Content Include="resource\games_config\chapter3_image.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="resource\hedgehog.png" />
+    <Content Include="resource\leopard.png" />
+    <Content Include="resource\mouse.png" />
+    <Content Include="resource\napoleon.png" />
     <Content Include="resource\pig.png" />
+    <Content Include="resource\scorpion.png" />
+    <Content Include="resource\snail.png" />
+    <Content Include="resource\snowball.png" />
     <Content Include="resource\stories\1-1\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -155,6 +163,7 @@
     <Content Include="resource\stories\1-1\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="resource\toad.png" />
     <None Include="resource\tower.png" />
     <None Include="resource\enemy.png" />
     <Content Include="resource\games_config\chapter2\2-1.txt">
