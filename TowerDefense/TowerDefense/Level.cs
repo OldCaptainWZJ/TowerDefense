@@ -12,7 +12,8 @@ namespace TowerDefense
     {
         public List<Tile> path = new List<Tile>();
         public List<Wave> waves = new List<Wave>();
-        public int startMoney;
+        public int startMoney = 0;
+        public List<int> towerSelection = new List<int>();
 
         public Level(string levelPath)
         {
@@ -53,6 +54,12 @@ namespace TowerDefense
             }
 
             startMoney = Convert.ToInt32(reader.ReadLine());
+
+            strings = reader.ReadLine().Split(' ');
+            for (int i=0; i<strings.Length; i++)
+            {
+                towerSelection.Add(Convert.ToInt32(strings[i]));
+            }
 
             F.Close();
         }
