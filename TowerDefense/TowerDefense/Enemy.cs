@@ -38,11 +38,13 @@ namespace TowerDefense
 
         protected double pos_x;
         protected double pos_y; //position (pixel, top-left)
+        protected double distance = 0.0; //distance from the start (to measure the furthest away)
 
         public int Attack { get { return attack; } }
         public int Reward { get { return reward; } }
         public double Pos_x { get { return pos_x; } }
         public double Pos_y { get { return pos_y; } }
+        public double Distance { get { return distance; } }
 
         public bool dead()
         {
@@ -80,6 +82,7 @@ namespace TowerDefense
 
             pos_x += speed * dirX * delta_t;
             pos_y += speed * dirY * delta_t;
+            distance += speed * GridParams.TileSize * delta_t;
 
             if (!InSegment(pos_x, pos_y, path[movingStage], path[movingStage + 1]))
             {

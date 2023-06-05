@@ -179,7 +179,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameForm";
             this.Text = "Tower Defense";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameForm_Paint);
             this.start_menu_panel.ResumeLayout(false);
             this.help_panel.ResumeLayout(false);
             this.help_panel.PerformLayout();

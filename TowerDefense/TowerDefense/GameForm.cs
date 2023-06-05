@@ -20,7 +20,8 @@ namespace TowerDefense
     {
         private Game game;
         private GameScenePanel gameScenePanel;
-
+        private int mouseX;
+        private int mouseY;
         public GameForm()
         {
             this.Padding = new Padding(GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize);

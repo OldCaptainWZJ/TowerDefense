@@ -16,7 +16,7 @@ namespace TowerDefense
         private Level level;
         private int baseHP = 100;
         private int money;
-        private bool[,] occupied;
+        private bool[,] occupied = new bool[GridParams.GridSizeX, GridParams.GridSizeY];
         private int currentWaveIndex = 0;
         private Wave currentWave;
 
@@ -31,6 +31,11 @@ namespace TowerDefense
         public Game(string levelPath)
         {
             level = new Level(levelPath);
+            money = level.startMoney;
+            foreach(var t in level.path)
+            {
+                occupied[t.x, t.y] = true;
+            }
         }
 
         public void waveRun(GameForm form)
@@ -88,8 +93,9 @@ namespace TowerDefense
         public bool waveProcess(double delta_t) //return false if failed level
         {
             //tower attack
-            foreach(var t in towers)
+            for (int i = 0; i < towers.Count; i++)
             {
+                Tower t = towers[i];
                 t.select(enemies, delta_t);
                 t.deal(delta_t);
             }
@@ -97,8 +103,9 @@ namespace TowerDefense
             deleteList.Clear();
 
             //change enemy status
-            foreach (var e in enemies)
+            for (int i = 0; i < enemies.Count; i++)
             {
+                Enemy e = enemies[i];
                 e.move(delta_t);
                 e.statusEffect(delta_t);
 
@@ -127,6 +134,27 @@ namespace TowerDefense
             }
 
             return true;
+        }
+
+        public bool placeTower(int x, int y, int type) //return true if success
+        {
+            if (occupied[x, y]) return false;
+
+            Tile tile = new Tile(x, y);
+            Tower tower = produceTower(type, tile);
+
+            if (money < tower.Cost) return false;
+            money -= tower.Cost;
+            occupied[x, y] = true;
+            towers.Add(tower);
+
+            return true;
+        }
+
+        private Tower produceTower(int type, Tile tile)
+        {
+            if (type == (int)TowerType.Default) return new DefaultTower(tile);
+            return new DefaultTower(tile); // should not reach this line
         }
     }
 }
