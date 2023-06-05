@@ -38,7 +38,7 @@ namespace TowerDefense
             }
         }
 
-        public void waveRun(GameForm form)
+        public void waveRun(GameScenePanel panel)
         {
             bool flag = true;
 
@@ -85,9 +85,9 @@ namespace TowerDefense
             currentWaveIndex++;
 
             //callback: 0:failed, 1:wave success, 2:level complete
-            if (!flag) form.waveCallback(0);
-            if (currentWaveIndex == level.waves.Count) form.waveCallback(2);
-            form.waveCallback(1);
+            if (!flag) panel.waveCallback(0);
+            if (currentWaveIndex == level.waves.Count) panel.waveCallback(2);
+            panel.waveCallback(1);
         }
 
         public bool waveProcess(double delta_t) //return false if failed level
@@ -96,6 +96,7 @@ namespace TowerDefense
             for (int i = 0; i < towers.Count; i++)
             {
                 Tower t = towers[i];
+                if (t == null) continue;
                 t.select(enemies, delta_t);
                 t.deal(delta_t);
             }

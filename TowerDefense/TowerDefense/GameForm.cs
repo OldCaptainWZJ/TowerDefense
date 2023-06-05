@@ -406,9 +406,6 @@ namespace TowerDefense
 
             timer1.Start();
 
-            Thread thread = new Thread(() => { game.waveRun(this); });
-            thread.Start();
-
             //加载游戏界面的panel
             gameScenePanel.Visible = true;
         }
@@ -479,13 +476,6 @@ namespace TowerDefense
         {
             help_panel.Visible = false;
             start_menu_panel.Visible = true;
-        }
-
-        public void waveCallback(int val)
-        {
-            //callback: 0:failed, 1:wave success, 2:level complete
-            throw new NotImplementedException();
-            //TODO
         }
 
         private void timer1_Tick(object sender, EventArgs e)

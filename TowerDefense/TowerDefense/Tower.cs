@@ -20,7 +20,7 @@ namespace TowerDefense
     {
         protected SelectMethod selectMethod;
         protected DamageMethod damageMethod;
-        protected List<Enemy> selectedEnemies;
+        protected List<Enemy> selectedEnemies = new List<Enemy>();
         protected int cost;
         protected Tile position;
         protected double maxCooldown;
@@ -30,7 +30,7 @@ namespace TowerDefense
 
         public void initCooldown()
         {
-            cooldown = maxCooldown;
+            cooldown = 0.0;
         }
 
         public abstract void select(List<Enemy> enemies, double delta_t);
@@ -43,13 +43,16 @@ namespace TowerDefense
         
         protected void cooldownSelect(List<Enemy> enemies, double delta_t)
         {
-            cooldown -= delta_t;
             if (cooldown <= 0.0)
             {
-                cooldown += maxCooldown;
                 selectedEnemies = selectMethod.select(enemies);
+                if (selectedEnemies.Count != 0) cooldown += maxCooldown;
             }
-            else selectedEnemies.Clear();
+            else
+            {
+                selectedEnemies.Clear();
+                cooldown -= delta_t;
+            }
         }
 
         protected void continuousSelect(List<Enemy> enemies)

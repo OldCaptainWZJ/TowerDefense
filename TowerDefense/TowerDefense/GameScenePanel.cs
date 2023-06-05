@@ -11,9 +11,14 @@ namespace TowerDefense
 {
     internal class GameScenePanel : Panel
     {
+        Form form;
+
         Game game;
         Image gameSceneImage;
         Image gamePropertiesImage;
+
+        Button nextWaveButton;
+        Button exitButton;
 
         Panel towerListPanel;
         List<Label> towerListLabels;
@@ -26,6 +31,8 @@ namespace TowerDefense
         int selected;
         int mouseX;
         int mouseY;
+
+        bool waveInProcess = false;
 
         public GameScenePanel()
         {
@@ -57,17 +64,17 @@ namespace TowerDefense
 
         private void initButtons()
         {
-            Button nextLevelButton = new Button();
-            nextLevelButton.Text = "下一波敌人";
-            nextLevelButton.AutoSize = false;
-            nextLevelButton.Width = 160;
-            nextLevelButton.Height = 50;
-            nextLevelButton.Location = new Point(0, 10);
-            nextLevelButton.BackColor = Color.AliceBlue;
-            nextLevelButton.Click += nextLevelButtonClick;
-            Controls.Add(nextLevelButton);
+            nextWaveButton = new Button();
+            nextWaveButton.Text = "下一波敌人";
+            nextWaveButton.AutoSize = false;
+            nextWaveButton.Width = 160;
+            nextWaveButton.Height = 50;
+            nextWaveButton.Location = new Point(0, 10);
+            nextWaveButton.BackColor = Color.AliceBlue;
+            nextWaveButton.Click += nextWaveButtonClick;
+            Controls.Add(nextWaveButton);
 
-            Button exitButton = new Button();
+            exitButton = new Button();
             exitButton.Text = "退出";
             exitButton.AutoSize = false;
             exitButton.Width = 160;
@@ -150,8 +157,22 @@ namespace TowerDefense
             this.game = game;
         }
 
-        public void nextLevelButtonClick(object sender, EventArgs e)
+        public void nextWaveButtonClick(object sender, EventArgs e)
         {
+            if (waveInProcess) return;
+
+            waveInProcess = true;
+
+            Thread thread = new Thread(() => { game.waveRun(this); });
+            thread.Start();
+        }
+
+        public void waveCallback(int val)
+        {
+            //callback: 0:failed, 1:wave success, 2:level complete
+
+            waveInProcess = false;
+            //TODO: process failure and level completion
         }
 
         public void exitButtonClick(object sender, EventArgs e)
@@ -172,6 +193,10 @@ namespace TowerDefense
 
             // 绘制游戏属性 
             paintProperties(propertiesG);
+
+            // 监控按钮状态
+            if (waveInProcess) nextWaveButton.Enabled = false;
+            else nextWaveButton.Enabled = true;
 
             // 将场景图片绘制到屏幕上
             Graphics g = e.Graphics;
@@ -222,7 +247,7 @@ namespace TowerDefense
             Font propFont = new Font("宋体", 24);
             g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
             g.DrawString("金钱: " + game.Money.ToString(), propFont, propBrush, 10, 20);
-            g.DrawString(String.Format("波数: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
+            g.DrawString(String.Format("已完成波数: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
         private void Item_Click(object sender, EventArgs e)
