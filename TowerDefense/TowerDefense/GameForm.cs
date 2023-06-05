@@ -41,6 +41,12 @@ namespace TowerDefense
         Button prevLevelButton;
         Button nextLevelButton;
 
+        List<Image> levelImages;
+        int currentImageIndex;
+        PictureBox storyImage;
+        Button prevStoryButton;
+        Button nextStoryButton;
+
         public GameForm()
         {
             this.Padding = new Padding(GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize);
@@ -282,7 +288,7 @@ namespace TowerDefense
             Debug.WriteLine(levels);
             for (int i = 0; i < levels.Count; i++)
             {
-                levels[i] = levels[i].Substring(31);
+                levels[i] = levels[i].Substring(31,3);
             }
 
             // Set the current level to the first one
@@ -313,8 +319,98 @@ namespace TowerDefense
 
         private void SelectButton_Click(object sender, EventArgs e)
         {
-            // Implement your event handler here
+            StartLevel(levels[currentLevelIndex-1]);
         }
+
+        private void StartLevel(string levelName)
+        {
+
+            Panel storyPanel = new Panel()
+            {
+                Size = new Size(960, 720),
+                BackColor = Color.LightBlue,
+                Visible = false,
+            };
+
+            storyImage = new PictureBox()
+            {
+                Size = storyPanel.Size,
+                Location = new Point(0, 0),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+            };
+            
+            prevStoryButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(10, (storyPanel.Height - 30) / 2),
+                Text = "<",
+            };
+            prevStoryButton.Click += PrevStoryButton_Click;
+
+            nextStoryButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(storyPanel.Width - 60, (storyPanel.Height - 30) / 2),
+                Text = ">",
+            };
+            nextStoryButton.Click += NextStoryButton_Click;
+
+            storyPanel.Controls.Add(storyImage);
+            storyImage.Controls.Add(prevStoryButton);
+            storyImage.Controls.Add(nextStoryButton);
+
+            this.Controls.Add(storyPanel);
+
+            string[] imagePaths = Directory.GetFiles(Path.Combine("resource", "stories", levelName))
+        .OrderBy(path => int.Parse(Path.GetFileNameWithoutExtension(path)))
+        .ToArray();
+
+            levelImages = imagePaths.Select(Image.FromFile).ToList();
+            currentImageIndex = 0;
+
+            storyImage.Image = levelImages[currentImageIndex];
+            prevStoryButton.Visible = false;
+            nextStoryButton.Visible = (levelImages.Count > 1);
+            levelPanel.Visible = false;
+            storyPanel.Visible = true;
+        }
+
+        private void PrevStoryButton_Click(object sender, EventArgs e)
+        {
+            if (currentImageIndex > 0)
+            {
+                currentImageIndex--;
+                storyImage.Image = levelImages[currentImageIndex];
+                nextStoryButton.Visible = true;
+
+                if (currentImageIndex == 0)
+                {
+                    prevStoryButton.Visible = false;
+                }
+            }
+        }
+
+        private void NextStoryButton_Click(object sender, EventArgs e)
+        {
+            if (currentImageIndex < levelImages.Count - 1)
+            {
+                currentImageIndex++;
+                storyImage.Image = levelImages[currentImageIndex];
+                prevStoryButton.Visible = true;
+
+                if (currentImageIndex == levelImages.Count - 1)
+                {
+                    StartGame();
+                }
+            }
+        }
+        void StartGame()
+        {
+
+        }
+
 
         private void PrevLevelButton_Click(object sender, EventArgs e)
         {
