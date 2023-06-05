@@ -55,5 +55,43 @@ namespace TowerDefense
                 return true;
             return false;
         }
-    } 
+    }
+
+    internal class AreaSelect : SelectMethod
+    {
+        private Tile position;
+        private double range; //unit: tiles
+        public AreaSelect(double range, Tile position)
+        {
+            this.position = position;
+            this.range = range;
+        }
+        public override List<Enemy> select(List<Enemy> enemies)
+        {
+            List<Enemy> selected = new List<Enemy>();
+
+            //locate the enemies within range
+            foreach (var e in enemies)
+            {
+                if (InRange(e.Pos_x, e.Pos_y, range, position))
+                {
+                    selected.Add(e);
+                }
+            }
+            return selected;
+        }
+
+        private bool InRange(double x, double y, double r, Tile pos)
+        {
+            double cx = x;
+            double cy = y;
+            double tilecx = (double)pos.x * GridParams.TileSize;
+            double tilecy = (double)pos.y * GridParams.TileSize;
+            double R = r * GridParams.TileSize;
+
+            if ((cx - tilecx) * (cx - tilecx) + (cy - tilecy) * (cy - tilecy) <= R * R)
+                return true;
+            return false;
+        }
+    }
 }

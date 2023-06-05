@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="SelectMethod.cs" />
     <Compile Include="EnemyPainting .cs" />
+    <Compile Include="TowerImplementation.cs" />
     <Compile Include="TowerPainting.cs" />
     <Compile Include="Tower.cs" />
     <EmbeddedResource Include="GameForm.resx">

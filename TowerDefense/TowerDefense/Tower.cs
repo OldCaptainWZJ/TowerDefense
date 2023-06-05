@@ -8,7 +8,12 @@ namespace TowerDefense
 {
     enum TowerType
     {
-        Default = 0
+        Default = 0,
+        Pig = 1,
+        Snowball = 2,
+        Napoleon = 3,
+        Boxer = 4,
+        Hedgehog = 5
     }
     internal abstract partial class Tower
     {
@@ -54,6 +59,11 @@ namespace TowerDefense
         public static Tower produceTower(int type, Tile tile)
         {
             if (type == (int)TowerType.Default) return new DefaultTower(tile);
+            if (type == (int)TowerType.Pig) return new Pig(tile);
+            if (type == (int)TowerType.Snowball) return new Snowball(tile);
+            if (type == (int)TowerType.Napoleon) return new Napoleon(tile);
+            if (type == (int)TowerType.Boxer) return new Boxer(tile);
+            if (type == (int)TowerType.Hedgehog) return new Hedgehog(tile);
             return new DefaultTower(tile); // should not reach this line
         }
     }

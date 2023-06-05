@@ -46,4 +46,22 @@ namespace TowerDefense
             }
         }
     }
+
+    internal class FreezeSingleDamage : DamageMethod
+    {
+        private double damage;
+
+        public FreezeSingleDamage(double damage)
+        {
+            this.damage = damage;
+        }
+        public override void deal(List<Enemy> enemies, double delta_t)
+        {
+            foreach (var e in enemies)
+            {
+                e.dealtDamage(damage);
+                e.dealtStatusEffect(StatusEffect.Frozen, 3.0);
+            }
+        }
+    }
 }
