@@ -78,8 +78,8 @@ namespace TowerDefense
             double dirX = ((double)(path[movingStage + 1].x - path[movingStage].x)) * GridParams.TileSize;
             double dirY = ((double)(path[movingStage + 1].y - path[movingStage].y)) * GridParams.TileSize;
 
-            pos_x += speed * delta_t * dirX;
-            pos_y += speed * delta_t * dirY;
+            pos_x += speed * dirX * delta_t;
+            pos_y += speed * dirY * delta_t;
 
             if (!InSegment(pos_x, pos_y, path[movingStage], path[movingStage + 1]))
             {
@@ -99,10 +99,10 @@ namespace TowerDefense
 
         private bool InSegment(double x, double y, Tile a, Tile b)
         {
-            double ax = ((double)a.x) * GridParams.TileSize + GridParams.StartX;
-            double ay = ((double)a.y) * GridParams.TileSize + GridParams.StartY;
-            double bx = ((double)b.x) * GridParams.TileSize + GridParams.StartX;
-            double by = ((double)b.y) * GridParams.TileSize + GridParams.StartY;
+            double ax = ((double)a.x) * GridParams.TileSize;
+            double ay = ((double)a.y) * GridParams.TileSize;
+            double bx = ((double)b.x) * GridParams.TileSize;
+            double by = ((double)b.y) * GridParams.TileSize;
             if (a.x != b.x)
             {
                 if (x < Math.Min(ax, bx)) return false;
