@@ -299,9 +299,9 @@ namespace TowerDefense
                 return;
 
             string level = levels[index-1];
-            string imageName = $"{chapters[currentChapterIndex-1]}_image.png";
+            string imageName = $"0.png";
 
-            levelImage.Image = Image.FromFile(Path.Combine("resource/games_config",imageName));
+            levelImage.Image = Image.FromFile(Path.Combine("resource/stories/"+$"{levels[currentLevelIndex - 1]}/",imageName));;
             levelTitle.Text = level;
 
             prevLevelButton.Visible = (index != 1);
@@ -363,7 +363,7 @@ namespace TowerDefense
 
             storyImage.Image = levelImages[currentImageIndex];
             prevStoryButton.Visible = false;
-            nextStoryButton.Visible = (levelImages.Count > 1);
+            nextStoryButton.Visible = true;
             levelPanel.Visible = false;
             storyPanel.Visible = true;
         }
@@ -385,15 +385,19 @@ namespace TowerDefense
 
         private void NextStoryButton_Click(object sender, EventArgs e)
         {
-            if (currentImageIndex < levelImages.Count - 1)
+            if (currentImageIndex < levelImages.Count)
             {
-                currentImageIndex++;
-                storyImage.Image = levelImages[currentImageIndex];
+                
                 prevStoryButton.Visible = true;
 
-                if (currentImageIndex == levelImages.Count - 1)
+                if (currentImageIndex == levelImages.Count-1)
                 {
                     StartGame();
+                }
+                else 
+                {
+                    currentImageIndex++;
+                    storyImage.Image = levelImages[currentImageIndex];
                 }
             }
         }
