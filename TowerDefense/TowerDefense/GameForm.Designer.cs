@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.start_menu_panel = new System.Windows.Forms.Panel();
             this.help_panel = new System.Windows.Forms.Panel();
-            this.game_scene_panel = new System.Windows.Forms.Panel();
             this.help_to_start_menu_button = new System.Windows.Forms.Button();
             this.help_content_textBox = new System.Windows.Forms.TextBox();
-            this.cover_pictureBox = new System.Windows.Forms.PictureBox();
             this.start_game_button = new System.Windows.Forms.Button();
             this.select_level_button = new System.Windows.Forms.Button();
             this.help_button = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
+            this.cover_pictureBox = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.start_menu_panel.SuspendLayout();
             this.help_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).BeginInit();
@@ -46,7 +47,6 @@
             // 
             // start_menu_panel
             // 
-            this.start_menu_panel.Controls.Add(this.game_scene_panel);
             this.start_menu_panel.Controls.Add(this.help_panel);
             this.start_menu_panel.Controls.Add(this.start_game_button);
             this.start_menu_panel.Controls.Add(this.select_level_button);
@@ -69,16 +69,6 @@
             this.help_panel.TabIndex = 5;
             this.help_panel.Visible = false;
             // 
-            // game_scene_panel
-            // 
-            this.game_scene_panel.BackColor = System.Drawing.Color.IndianRed;
-            this.game_scene_panel.Location = new System.Drawing.Point(3, 3);
-            this.game_scene_panel.Name = "game_scene_panel";
-            this.game_scene_panel.Size = new System.Drawing.Size(1181, 854);
-            this.game_scene_panel.TabIndex = 6;
-            this.game_scene_panel.Visible = false;
-            this.game_scene_panel.Paint += new System.Windows.Forms.PaintEventHandler(this.game_scene_panel_Paint);
-            // 
             // help_to_start_menu_button
             // 
             this.help_to_start_menu_button.Location = new System.Drawing.Point(947, 11);
@@ -98,17 +88,6 @@
             this.help_content_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.help_content_textBox.Size = new System.Drawing.Size(864, 759);
             this.help_content_textBox.TabIndex = 0;
-            // 
-            // cover_pictureBox
-            // 
-            this.cover_pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("cover_pictureBox.Image")));
-            this.cover_pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.cover_pictureBox.Name = "cover_pictureBox";
-            this.cover_pictureBox.Size = new System.Drawing.Size(1181, 855);
-            this.cover_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.cover_pictureBox.TabIndex = 0;
-            this.cover_pictureBox.TabStop = false;
-            this.cover_pictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // start_game_button
             // 
@@ -174,6 +153,22 @@
             this.exit_button.UseVisualStyleBackColor = false;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
+            // cover_pictureBox
+            // 
+            this.cover_pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("cover_pictureBox.Image")));
+            this.cover_pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.cover_pictureBox.Name = "cover_pictureBox";
+            this.cover_pictureBox.Size = new System.Drawing.Size(1181, 855);
+            this.cover_pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.cover_pictureBox.TabIndex = 0;
+            this.cover_pictureBox.TabStop = false;
+            this.cover_pictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 13;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -202,7 +197,7 @@
         private System.Windows.Forms.Panel help_panel;
         private System.Windows.Forms.TextBox help_content_textBox;
         private System.Windows.Forms.Button help_to_start_menu_button;
-        private System.Windows.Forms.Panel game_scene_panel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
