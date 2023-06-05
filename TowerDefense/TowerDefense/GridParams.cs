@@ -11,7 +11,10 @@ namespace TowerDefense
         public const int GridSizeX = 16; //how many tiles per row
         public const int GridSizeY = 12; //how many tiles per column
         public const int TileSize = 50; //how many pixels is one tile long
-        public const int StartX = 400;
-        public const int StartY = 300; //starting position (top-left) for painting grid
+        public const int StartX = 160;
+        public const int StartY = 120; //starting position (top-left) for painting grid
+        public const int FormTitleSize=28;
+        public const int PaddingSize = 0;
+
     }
 }
