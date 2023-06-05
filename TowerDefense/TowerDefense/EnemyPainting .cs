@@ -10,7 +10,9 @@ namespace TowerDefense
 {
     internal abstract partial class Enemy
     {
-        private Image texture = Resource1.enemy;
+        protected Image texture = Resource1.enemy;
+        protected const int HPBarHeight = 5;
+        protected const int HPBarDist2Enemy = 1;
         public void paint(Graphics g)
         {
             g.DrawImage(texture, (float)pos_x, (float)pos_y, GridParams.TileSize, GridParams.TileSize);
@@ -19,8 +21,8 @@ namespace TowerDefense
             Brush hpBrush = new SolidBrush(Color.Red);
 
             float hpWidth = (float)HP * GridParams.TileSize / (float)maxHP;
-            g.DrawRectangle(hpPen, (float)pos_x, (float)pos_y - GridParams.HPBarDist2Enemy - GridParams.HPBarHeight, GridParams.TileSize, GridParams.HPBarHeight);
-            g.FillRectangle(hpBrush, (float)pos_x, (float)pos_y - GridParams.HPBarDist2Enemy - GridParams.HPBarHeight, hpWidth, GridParams.HPBarHeight);
+            g.DrawRectangle(hpPen, (float)pos_x, (float)pos_y - HPBarDist2Enemy - HPBarHeight, GridParams.TileSize, HPBarHeight);
+            g.FillRectangle(hpBrush, (float)pos_x, (float)pos_y - HPBarDist2Enemy - HPBarHeight, hpWidth, HPBarHeight);
         }
     }
 }
