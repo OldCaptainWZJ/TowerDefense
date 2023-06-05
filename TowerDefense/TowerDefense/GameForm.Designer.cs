@@ -46,12 +46,13 @@
             // 
             // start_menu_panel
             // 
+            this.start_menu_panel.Controls.Add(this.game_scene_panel);
             this.start_menu_panel.Controls.Add(this.help_panel);
-            this.start_menu_panel.Controls.Add(this.cover_pictureBox);
             this.start_menu_panel.Controls.Add(this.start_game_button);
             this.start_menu_panel.Controls.Add(this.select_level_button);
             this.start_menu_panel.Controls.Add(this.help_button);
             this.start_menu_panel.Controls.Add(this.exit_button);
+            this.start_menu_panel.Controls.Add(this.cover_pictureBox);
             this.start_menu_panel.Location = new System.Drawing.Point(0, 0);
             this.start_menu_panel.Name = "start_menu_panel";
             this.start_menu_panel.Size = new System.Drawing.Size(1181, 855);
@@ -60,19 +61,18 @@
             // help_panel
             // 
             this.help_panel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.help_panel.Controls.Add(this.game_scene_panel);
             this.help_panel.Controls.Add(this.help_to_start_menu_button);
             this.help_panel.Controls.Add(this.help_content_textBox);
-            this.help_panel.Location = new System.Drawing.Point(0, 1);
+            this.help_panel.Location = new System.Drawing.Point(43, 21);
             this.help_panel.Name = "help_panel";
-            this.help_panel.Size = new System.Drawing.Size(1181, 851);
+            this.help_panel.Size = new System.Drawing.Size(977, 863);
             this.help_panel.TabIndex = 5;
             this.help_panel.Visible = false;
             // 
             // game_scene_panel
             // 
             this.game_scene_panel.BackColor = System.Drawing.Color.IndianRed;
-            this.game_scene_panel.Location = new System.Drawing.Point(0, 0);
+            this.game_scene_panel.Location = new System.Drawing.Point(3, 3);
             this.game_scene_panel.Name = "game_scene_panel";
             this.game_scene_panel.Size = new System.Drawing.Size(1181, 854);
             this.game_scene_panel.TabIndex = 6;
@@ -118,7 +118,7 @@
             this.start_game_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.start_game_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.start_game_button.ForeColor = System.Drawing.Color.Black;
-            this.start_game_button.Location = new System.Drawing.Point(756, 496);
+            this.start_game_button.Location = new System.Drawing.Point(604, 376);
             this.start_game_button.Name = "start_game_button";
             this.start_game_button.Size = new System.Drawing.Size(288, 56);
             this.start_game_button.TabIndex = 1;
@@ -134,7 +134,7 @@
             this.select_level_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.select_level_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.select_level_button.ForeColor = System.Drawing.Color.Black;
-            this.select_level_button.Location = new System.Drawing.Point(756, 579);
+            this.select_level_button.Location = new System.Drawing.Point(604, 457);
             this.select_level_button.Name = "select_level_button";
             this.select_level_button.Size = new System.Drawing.Size(288, 56);
             this.select_level_button.TabIndex = 2;
@@ -150,7 +150,7 @@
             this.help_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.help_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.help_button.ForeColor = System.Drawing.Color.Black;
-            this.help_button.Location = new System.Drawing.Point(756, 659);
+            this.help_button.Location = new System.Drawing.Point(604, 538);
             this.help_button.Name = "help_button";
             this.help_button.Size = new System.Drawing.Size(288, 56);
             this.help_button.TabIndex = 4;
@@ -166,7 +166,7 @@
             this.exit_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exit_button.Font = new System.Drawing.Font("Sitka Small", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exit_button.ForeColor = System.Drawing.Color.Black;
-            this.exit_button.Location = new System.Drawing.Point(756, 743);
+            this.exit_button.Location = new System.Drawing.Point(604, 623);
             this.exit_button.Name = "exit_button";
             this.exit_button.Size = new System.Drawing.Size(288, 56);
             this.exit_button.TabIndex = 3;
@@ -177,9 +177,10 @@
             // GameForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1182, 853);
+            this.ClientSize = new System.Drawing.Size(1202, 896);
             this.Controls.Add(this.start_menu_panel);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameForm";
             this.Text = "Tower Defense";
