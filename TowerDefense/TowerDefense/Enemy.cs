@@ -148,6 +148,12 @@ namespace TowerDefense
         {
             status[(int)type] = val;
         }
+
+        public static Enemy produceEnemy(int enemyType)
+        {
+            if (enemyType == (int)EnemyType.Basic) return new BasicEnemy();
+            return new BasicEnemy(); //enemyType wrong
+        }
     }
 
     internal class BasicEnemy : Enemy

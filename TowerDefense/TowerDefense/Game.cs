@@ -141,7 +141,7 @@ namespace TowerDefense
             if (occupied[x, y]) return false;
 
             Tile tile = new Tile(x, y);
-            Tower tower = produceTower(type, tile);
+            Tower tower = Tower.produceTower(type, tile);
 
             if (money < tower.Cost) return false;
             money -= tower.Cost;
@@ -149,12 +149,6 @@ namespace TowerDefense
             towers.Add(tower);
 
             return true;
-        }
-
-        private Tower produceTower(int type, Tile tile)
-        {
-            if (type == (int)TowerType.Default) return new DefaultTower(tile);
-            return new DefaultTower(tile); // should not reach this line
         }
     }
 }

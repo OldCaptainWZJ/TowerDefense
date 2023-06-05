@@ -50,6 +50,12 @@ namespace TowerDefense
         {
             selectedEnemies = selectMethod.select(enemies);
         }
+
+        public static Tower produceTower(int type, Tile tile)
+        {
+            if (type == (int)TowerType.Default) return new DefaultTower(tile);
+            return new DefaultTower(tile); // should not reach this line
+        }
     }
 
     internal class DefaultTower : Tower
