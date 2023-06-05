@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -10,26 +11,36 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace TowerDefense
 {
+    
     public partial class GameForm : Form
     {
         private Game game;
-        private Level level;
-        private Image gameSceneImage;
-        private bool gameSceneVisible = false;
+        private GameScenePanel gameScenePanel;
 
         public GameForm()
         {
-            gameSceneImage = new Bitmap(GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            DoubleBuffered = true;
-
+            this.Padding = new Padding(GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize, GridParams.PaddingSize);
+            gameScenePanel = new GameScenePanel();
+            
             InitializeComponent();
+            Size panelSize = new Size(GridParams.StartX+GridParams.TileSize*GridParams.GridSizeX, GridParams.StartY + GridParams.TileSize * GridParams.GridSizeY);
 
             //设置父组件为GameForm窗体
             help_panel.Parent = start_menu_panel.Parent;
-            game_scene_panel.Parent = start_menu_panel.Parent;
+            help_panel.Size = panelSize;
+            gameScenePanel.Parent = start_menu_panel.Parent;
+            gameScenePanel.Size = panelSize;
+            start_menu_panel.Size = panelSize;
+            cover_pictureBox.Size = panelSize;
+            this.Size = panelSize;
+
+            gameScenePanel.Location = new Point(0, 0);
+            start_menu_panel.Location = new Point(0, 0);
+            help_panel.Location = new Point(0, 0);
 
             //添加子组件到start_menu_penel
             start_menu_panel.Controls.Add(cover_pictureBox);
@@ -40,6 +51,7 @@ namespace TowerDefense
 
             //添加子组件到help_panel
             help_panel.Controls.Add(help_content_textBox);
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -55,7 +67,7 @@ namespace TowerDefense
             start_menu_panel.Visible = false;
 
             game = new Game("chapter1/1-1.txt");
-            level = game.Level;
+            gameScenePanel.SetGame(game);
 
             timer1.Start();
 
@@ -63,8 +75,7 @@ namespace TowerDefense
             thread.Start();
 
             //加载游戏界面的panel
-            // game_scene_panel.Visible = true;
-            gameSceneVisible = true;
+            gameScenePanel.Visible = true;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -110,75 +121,21 @@ namespace TowerDefense
         public void waveCallback(int val)
         {
             //callback: 0:failed, 1:wave success, 2:level complete
-            timer1.Stop();
             throw new NotImplementedException();
             //TODO
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if(gameSceneVisible)
+            if(gameScenePanel.Visible)
             {
-                Invalidate();
+                gameScenePanel.Invalidate();
             }
         }
-
-        private void GameForm_Paint(object sender, PaintEventArgs e)
-        {
-            if (gameSceneVisible)
-            {
-                // 将游戏场景绘制到一张图片上
-                Graphics sceneG = Graphics.FromImage(gameSceneImage);
-
-                // 记录路径
-                bool[,] roadMark = new bool[GridParams.GridSizeX, GridParams.GridSizeY];
-
-                // 绘制起点终点
-                if (level.path.Count > 0)
-                {
-                    roadMark[level.path.First().x, level.path.First().y] = true;
-                    sceneG.DrawImage(Resource1.entrance, GridParams.TileSize * level.path.First().x, GridParams.TileSize * level.path.First().y, GridParams.TileSize, GridParams.TileSize);
-
-                    roadMark[level.path.Last().x, level.path.Last().y] = true;
-                    sceneG.DrawImage(Resource1.exit, GridParams.TileSize * level.path.Last().x, GridParams.TileSize * level.path.Last().y, GridParams.TileSize, GridParams.TileSize);
-                }
-
-                // 绘制路径
-                for (int i = 1; i < level.path.Count() - 1; ++i)
-                {
-                    var tile = level.path[i];
-                    roadMark[tile.x, tile.y] = true;
-                    sceneG.DrawImage(Resource1.road, GridParams.TileSize * tile.x, GridParams.TileSize * tile.y, GridParams.TileSize, GridParams.TileSize);
-                }
-
-                // 绘制其他网格
-                for (int i = 0; i < GridParams.GridSizeX; ++i)
-                {
-                    for (int j = 0; j < GridParams.GridSizeY; ++j)
-                    {
-                        if (!roadMark[i, j])
-                        {
-                            sceneG.DrawImage(Resource1.tile, GridParams.TileSize * i, GridParams.TileSize * j, GridParams.TileSize, GridParams.TileSize);
-                        }
-                    }
-                }
-
-                game.paint(sceneG);
-
-                // 将场景图片绘制到屏幕上
-                Graphics g = e.Graphics;
-                g.DrawImage(gameSceneImage, GridParams.StartX, GridParams.StartY, GridParams.GridSizeX * GridParams.TileSize, GridParams.GridSizeY * GridParams.TileSize);
-            }
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            if(game_scene_panel.Visible && m.Msg == 0x0014)
-            {
-                return;
-            }
-
-            base.WndProc(ref m);
-        }
+    }
+    public class GameCharacter
+    {
+        public Image Icon { get; set; }
+        public string Name { get; set; }
     }
 }
