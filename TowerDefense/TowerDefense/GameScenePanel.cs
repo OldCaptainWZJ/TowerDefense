@@ -222,7 +222,7 @@ namespace TowerDefense
             Font propFont = new Font("宋体", 24);
             g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
             g.DrawString("金钱: " + game.Money.ToString(), propFont, propBrush, 10, 20);
-            g.DrawString(String.Format("波数: {0:d}/{0:d}", game.CurrentWave, game.Level.waves.Count()), propFont, propBrush, 240, 20);
+            g.DrawString(String.Format("波数: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
         private void Item_Click(object sender, EventArgs e)
