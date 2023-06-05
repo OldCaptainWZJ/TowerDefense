@@ -28,7 +28,7 @@ namespace TowerDefense
         const int towerItemWidth = 160;
         const int towerItemHeight = 50 + 2 * towerItemPadding;
 
-        int selected;
+        int selected = -1;
         int mouseX;
         int mouseY;
 
@@ -269,9 +269,11 @@ namespace TowerDefense
 
             if (name != null)
             {
-                if (name.Equals("character 1")) selected = 0;
-                if (name.Equals("character 2")) selected = 1;
-                if (name.Equals("character 3")) selected = 2;
+                if (name.Equals("Pig")) selected = 1;
+                if (name.Equals("Snowball")) selected = 2;
+                if (name.Equals("Napoleon")) selected = 3;
+                if (name.Equals("Boxer")) selected = 4;
+                if (name.Equals("Hedgehog")) selected = 5;
             }
         }
 
@@ -283,6 +285,8 @@ namespace TowerDefense
 
         private void placeTower(object sender, EventArgs e)
         {
+            if (selected == -1) return;
+
             int gridX = (mouseX - GridParams.StartX) / GridParams.TileSize;
             int gridY = (mouseY - GridParams.StartY) / GridParams.TileSize;
 
@@ -291,6 +295,8 @@ namespace TowerDefense
 
             bool result = game.placeTower(gridX, gridY, selected);
             if (!result) MessageBox.Show("Fail to place tower!");
+
+            selected = -1;
         }
     }
 }
