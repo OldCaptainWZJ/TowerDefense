@@ -97,7 +97,7 @@ namespace TowerDefense
             texture = Resource1.snail;
 
             HP = maxHP = 40.0;
-            attack = 10;
+            attack = 20;
             speed = defaultSpeed = 1.0;
             reward = 15;
 
@@ -134,7 +134,7 @@ namespace TowerDefense
             texture = Resource1.mouse;
 
             HP = maxHP = 15.0;
-            attack = 10;
+            attack = 20;
             speed = defaultSpeed = 1.0;
             reward = 10;
 

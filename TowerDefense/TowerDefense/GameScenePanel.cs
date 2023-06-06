@@ -9,6 +9,13 @@ using System.Threading;
 
 namespace TowerDefense
 {
+    enum GameState
+    {
+        Failed = 0,
+        Ongoing = 1,
+        Completed = 2
+    }
+
     internal class GameScenePanel : Panel
     {
         Form form;
@@ -33,6 +40,8 @@ namespace TowerDefense
         int mouseY;
 
         bool waveInProcess = false;
+        int gameState = 1;
+        bool gameOver = false;
 
         public GameScenePanel()
         {
@@ -172,15 +181,33 @@ namespace TowerDefense
             //callback: 0:failed, 1:wave success, 2:level complete
 
             waveInProcess = false;
-            //TODO: process failure and level completion
+            gameState = val;
         }
 
         public void exitButtonClick(object sender, EventArgs e)
         {
+            gameState = (int) GameState.Failed;
         }
 
         public void onPaint(object sender, PaintEventArgs e)
         {
+            // 游戏正常结束处理，停止绘制
+            if (gameState == (int)GameState.Failed && !gameOver)
+            {
+                gameOver = true;
+                MessageBox.Show("很遗憾，再试一次吧！");
+                this.Visible = false;
+            }
+
+            if (gameState == (int)GameState.Completed)
+            {
+                gameOver = true;
+                MessageBox.Show("恭喜你，过关啦！");
+                this.Visible = false;
+            }
+
+            if (gameOver) return;
+
             // 将游戏场景绘制到一张图片上
             Graphics sceneG = Graphics.FromImage(gameSceneImage);
             Graphics propertiesG = Graphics.FromImage(gamePropertiesImage);

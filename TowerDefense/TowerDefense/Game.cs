@@ -84,10 +84,12 @@ namespace TowerDefense
 
             currentWaveIndex++;
 
+            if (baseHP <= 0) flag = false;
+
             //callback: 0:failed, 1:wave success, 2:level complete
             if (!flag) panel.waveCallback(0);
-            if (currentWaveIndex == level.waves.Count) panel.waveCallback(2);
-            panel.waveCallback(1);
+            else if (currentWaveIndex == level.waves.Count) panel.waveCallback(2);
+            else panel.waveCallback(1);
         }
 
         public bool waveProcess(double delta_t) //return false if failed level
