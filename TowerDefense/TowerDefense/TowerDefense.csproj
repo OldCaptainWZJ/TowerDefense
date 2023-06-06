@@ -156,6 +156,9 @@
     <Content Include="resource\help\0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="resource\help\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="resource\leopard.png" />
     <Content Include="resource\mouse.png" />
     <Content Include="resource\napoleon.png" />
