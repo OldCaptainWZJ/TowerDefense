@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using Button = System.Windows.Forms.Button;
@@ -21,7 +23,7 @@ namespace TowerDefense
     {
         private Game game;
         private GameScenePanel gameScenePanel;
-
+        private System.Windows.Forms.Timer timer2;
         private int mouseX;
         private int mouseY;
         List<string> chapters;
@@ -46,6 +48,14 @@ namespace TowerDefense
         PictureBox storyImage;
         Button prevStoryButton;
         Button nextStoryButton;
+        Panel storyPanel;
+
+        List<Image> helpImages;
+        int currentHelpImageIndex;
+        Panel helpPanel;
+        PictureBox helpImage;
+        Button prevHelpButton;
+        Button nextHelpButton;
 
         public GameForm()
         {
@@ -56,8 +66,6 @@ namespace TowerDefense
             Size panelSize = new Size(GridParams.StartX+GridParams.TileSize*GridParams.GridSizeX, GridParams.StartY + GridParams.TileSize * GridParams.GridSizeY);
 
             //设置父组件为GameForm窗体
-            help_panel.Parent = start_menu_panel.Parent;
-            help_panel.Size = panelSize;
             gameScenePanel.Parent = start_menu_panel.Parent;
             gameScenePanel.Size = panelSize;
             start_menu_panel.Size = panelSize;
@@ -66,7 +74,6 @@ namespace TowerDefense
 
             gameScenePanel.Location = new Point(0, 0);
             start_menu_panel.Location = new Point(0, 0);
-            help_panel.Location = new Point(0, 0);
 
             //添加子组件到start_menu_penel
             start_menu_panel.Controls.Add(cover_pictureBox);
@@ -75,8 +82,9 @@ namespace TowerDefense
             cover_pictureBox.Controls.Add(select_level_button);
             cover_pictureBox.Controls.Add(help_button);
 
-            //添加子组件到help_panel
-            help_panel.Controls.Add(help_content_textBox);
+            timer2 = new System.Windows.Forms.Timer();
+            timer2.Interval = 500;
+            timer2.Tick += timer2_Tick;
             
         }
 
@@ -91,8 +99,36 @@ namespace TowerDefense
             //start_menu_panel.Parent.Controls.Remove(start_menu_panel);
             //start_menu_panel.Dispose();
             start_menu_panel.Visible = false;
+            int chapterNum = 1;
+            int levelNum = 1;
 
-            StartGame();
+            string savePath = Path.Combine("resource", "save.txt");
+            if (System.IO.File.Exists(savePath))
+            {
+                string[] lines = System.IO.File.ReadAllLines(savePath);
+                if (lines.Length > 0)
+                {
+                    string[] numbers = lines[0].Split(' ');
+                    if (numbers.Length >= 2)
+                    {
+                        chapterNum = int.Parse(numbers[0]);
+                        levelNum = int.Parse(numbers[1]);
+
+                        // You can now use chapterNumber and levelNumber
+                    }
+                }
+            }
+            button1_Click_1(null, null);
+            for(int i= 1;i<chapterNum;i++)
+            {
+                NextButton_Click(null, null);
+            }
+            ConfirmButton_Click(null, null);
+            for (int i = 1; i < levelNum; i++)
+            {
+                NextLevelButton_Click(null, null);
+            }
+            SelectButton_Click(null, null);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -276,7 +312,6 @@ namespace TowerDefense
             this.Controls.Add(levelPanel);
 
             levels = Directory.GetFiles("resource/games_config/" + chapters[currentChapterIndex-1],"*",SearchOption.AllDirectories).ToList();
-            Debug.WriteLine(levels);
             for (int i = 0; i < levels.Count; i++)
             {
                 levels[i] = levels[i].Substring(31,3);
@@ -315,8 +350,11 @@ namespace TowerDefense
 
         private void StartLevel(string levelName)
         {
+            string savePath = Path.Combine("resource", "save.txt");
+            string saveData = $"{currentChapterIndex} {currentLevelIndex}";
 
-            Panel storyPanel = new Panel()
+            System.IO.File.WriteAllText(savePath, saveData);
+            storyPanel = new Panel()
             {
                 Size = new Size(960, 720),
                 BackColor = Color.LightBlue,
@@ -410,8 +448,13 @@ namespace TowerDefense
 
             timer1.Start();
 
+
             //加载游戏界面的panel
+            if(storyPanel!=null&&storyPanel.Parent!=null) storyPanel.Parent.Controls.Remove(storyPanel);
+            if(storyPanel!=null) storyPanel.Dispose();
             gameScenePanel.Visible = true;
+            Debug.WriteLine(gameScenePanel.Visible);
+            timer2.Start();
         }
 
 
@@ -465,21 +508,105 @@ namespace TowerDefense
         private void help_button_Click(object sender, EventArgs e)
         {
             start_menu_panel.Visible = false;
-            help_panel.Visible = true;
-            string configFile = @"resource/games_config/help.txt"; // 替换为你的配置文件路径
-
-            using (StreamReader sr = new StreamReader(configFile))
+            helpPanel = new Panel()
             {
-                string content = sr.ReadToEnd();
-                help_content_textBox.Text = content;
-                
+                Size = new Size(960, 720),
+                BackColor = Color.LightBlue,
+                Visible = false,
+            };
+
+            helpImage = new PictureBox()
+            {
+                Size = helpPanel.Size,
+                Location = new Point(0, 0),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+            };
+
+            prevHelpButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(10, (helpPanel.Height - 30) / 2),
+                Text = "<",
+            };
+            prevHelpButton.Click += PrevHelpButton_Click;
+
+            nextHelpButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(helpPanel.Width - 60, (helpPanel.Height - 30) / 2),
+                Text = ">",
+            };
+            nextHelpButton.Click += NextHelpButton_Click;
+
+            Button returnButton = new Button()
+            {
+                Width = 50,
+                Height = 30,
+                Location = new Point(helpPanel.Width - 60, 10),  // placed at top-right corner
+                Text = "返回",
+            };
+
+            returnButton.Click += ReturnButton_Click;
+
+            helpPanel.Controls.Add(returnButton);
+            helpPanel.Controls.Add(helpImage);
+            helpImage.Controls.Add(prevHelpButton);
+            helpImage.Controls.Add(nextHelpButton);
+
+            this.Controls.Add(helpPanel);
+            helpImages = new List<Image>();
+            LoadHelpImages();
+            helpPanel.Visible = true;
+        }
+        private void LoadHelpImages()
+        {
+            string[] imagePaths = Directory.GetFiles(Path.Combine("resource", "help"))
+                .OrderBy(path => int.Parse(Path.GetFileNameWithoutExtension(path)))
+                .ToArray();
+            helpImages = imagePaths.Select(Image.FromFile).ToList();
+            Debug.WriteLine(helpImages.Count);
+            currentHelpImageIndex = 0;
+
+            helpImage.Image = helpImages[currentHelpImageIndex];
+            prevHelpButton.Visible = false;
+            nextHelpButton.Visible = (helpImages.Count >1);
+        }
+
+        private void PrevHelpButton_Click(object sender, EventArgs e)
+        {
+            if (currentHelpImageIndex > 0)
+            {
+                currentHelpImageIndex--;
+                helpImage.Image = helpImages[currentHelpImageIndex];
+                nextHelpButton.Visible = true;
+
+                if (currentHelpImageIndex == 0)
+                {
+                    prevHelpButton.Visible = false;
+                }
             }
         }
 
-        private void help_to_start_menu_button_Click(object sender, EventArgs e)
+        private void NextHelpButton_Click(object sender, EventArgs e)
         {
-            help_panel.Visible = false;
+            if (currentHelpImageIndex < helpImages.Count - 1)
+            {
+                currentHelpImageIndex++;
+                helpImage.Image = helpImages[currentHelpImageIndex];
+                prevHelpButton.Visible = true;
+
+                if (currentHelpImageIndex == helpImages.Count - 1)
+                {
+                    nextHelpButton.Visible = false;
+                }
+            }
+        }
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
             start_menu_panel.Visible = true;
+            helpPanel.Visible = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -487,6 +614,48 @@ namespace TowerDefense
             if(gameScenePanel.Visible)
             {
                 gameScenePanel.Invalidate();
+            }
+        }
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (!gameScenePanel.Visible)
+            {
+                if (game != null && game.gameResult == 0)
+                {
+                    timer2.Stop();
+                    if (gameScenePanel != null && gameScenePanel.Parent != null) gameScenePanel.Parent.Controls.Remove(gameScenePanel);
+                    if (gameScenePanel != null) gameScenePanel.Dispose();
+                    gameScenePanel = new GameScenePanel();
+                    gameScenePanel.Parent = start_menu_panel.Parent;
+                    Size panelSize = new Size(GridParams.StartX + GridParams.TileSize * GridParams.GridSizeX, GridParams.StartY + GridParams.TileSize * GridParams.GridSizeY);
+                    gameScenePanel.Size = panelSize;
+                    gameScenePanel.Location = new Point(0, 0);
+                    StartGame();
+                }
+                else if (game != null && game.gameResult == 2)
+                {
+                    timer2.Stop();
+                    if (gameScenePanel != null && gameScenePanel.Parent != null) gameScenePanel.Parent.Controls.Remove(gameScenePanel);
+                    if (gameScenePanel != null) gameScenePanel.Dispose();
+                    gameScenePanel = new GameScenePanel();
+                    gameScenePanel.Parent = start_menu_panel.Parent;
+                    Size panelSize = new Size(GridParams.StartX + GridParams.TileSize * GridParams.GridSizeX, GridParams.StartY + GridParams.TileSize * GridParams.GridSizeY);
+                    gameScenePanel.Size = panelSize;
+                    gameScenePanel.Location = new Point(0, 0);
+                    if (storyPanel != null && storyPanel.Parent != null) storyPanel.Parent.Controls.Remove(storyPanel);
+                    if (storyPanel != null) storyPanel.Dispose();
+                    if (currentLevelIndex == levels.Count)
+                    {
+                        if (levelPanel != null && levelPanel.Parent != null) levelPanel.Parent.Controls.Remove(levelPanel);
+                        if (levelPanel != null) levelPanel.Dispose();
+                        chapterPanel.Visible = true;
+                    }
+                    else
+                    {
+                        NextLevelButton_Click(null,null);
+                        levelPanel.Visible = true;
+                    }
+                }
             }
         }
     }
