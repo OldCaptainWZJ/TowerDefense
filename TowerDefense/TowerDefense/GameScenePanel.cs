@@ -122,8 +122,9 @@ namespace TowerDefense
                     var tower = Tower.produceTower(towerIdx, new Tile(0, 0));
 
                     Label lbl = new Label();
-                    lbl.Text = tower.getName();
+                    lbl.Text = tower.getName() + " " + tower.cost.ToString();
                     lbl.AutoSize = false; // 不自动调整大小，将其设定为指定宽度
+                    lbl.Font = new Font("serial", 12, FontStyle.Bold);
                     lbl.Width = towerItemWidth - 50 - 3 * towerItemPadding; // 预留出图片和额外的padding的空间
                     lbl.Location = new Point(startX + towerItemPadding, startY + towerItemPadding + (50 - lbl.Height) / 2); // 使得label和图片在同一行中居中
                     lbl.Click += Item_Click; // 添加点击事件处理器

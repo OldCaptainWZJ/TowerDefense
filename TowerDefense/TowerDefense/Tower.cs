@@ -21,7 +21,7 @@ namespace TowerDefense
         protected SelectMethod selectMethod;
         protected DamageMethod damageMethod;
         protected List<Enemy> selectedEnemies = new List<Enemy>();
-        protected int cost;
+        public int cost;
         protected Tile position;
         protected double maxCooldown;
         protected double cooldown;
