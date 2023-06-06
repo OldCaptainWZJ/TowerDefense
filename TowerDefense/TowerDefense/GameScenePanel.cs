@@ -54,7 +54,7 @@ namespace TowerDefense
 
         private void initPanel()
         {
-            BackColor = System.Drawing.Color.IndianRed;
+            BackColor = System.Drawing.Color.White;
             Location = new System.Drawing.Point(3, 3);
             Name = "game_scene_panel";
             Size = new System.Drawing.Size(1181, 854);
@@ -75,22 +75,22 @@ namespace TowerDefense
         private void initButtons()
         {
             nextWaveButton = new Button();
-            nextWaveButton.Text = "下一波敌人";
+            nextWaveButton.Text = "NEXT WAVE ->";
             nextWaveButton.AutoSize = false;
-            nextWaveButton.Width = 160;
-            nextWaveButton.Height = 50;
-            nextWaveButton.Location = new Point(0, 10);
-            nextWaveButton.BackColor = Color.AliceBlue;
+            nextWaveButton.Width = 140;
+            nextWaveButton.Height = 40;
+            nextWaveButton.Location = new Point(805, 10);
+            nextWaveButton.BackColor = Color.White;
             nextWaveButton.Click += nextWaveButtonClick;
             Controls.Add(nextWaveButton);
 
             exitButton = new Button();
-            exitButton.Text = "退出";
+            exitButton.Text = "EXIT";
             exitButton.AutoSize = false;
-            exitButton.Width = 160;
-            exitButton.Height = 50;
-            exitButton.Location = new Point(0, 70);
-            exitButton.BackColor = Color.AliceBlue;
+            exitButton.Width = 140;
+            exitButton.Height = 40;
+            exitButton.Location = new Point(805, 70);
+            exitButton.BackColor = Color.White;
             exitButton.Click += exitButtonClick;
             Controls.Add(exitButton);
         }
@@ -99,7 +99,7 @@ namespace TowerDefense
         {
             towerListPanel = new Panel();
             towerListPanel.Size = new Size(towerItemWidth, this.Height - 120); // 假设你的窗体高度足够大
-            towerListPanel.Location = new Point(0, 120);
+            towerListPanel.Location = new Point(0, 150);
             towerListPanel.AutoScroll = true; // 如果内容超出Panel的大小，则自动显示滚动条
             Controls.Add(towerListPanel);
 
@@ -197,7 +197,7 @@ namespace TowerDefense
             if (gameState == (int)GameState.Failed && !gameOver)
             {
                 gameOver = true;
-                MessageBox.Show("很遗憾，再试一次吧！", "消息", MessageBoxButtons.OK);
+                MessageBox.Show("Sorry. Please try again", "Animal Farms", MessageBoxButtons.OK);
                 game.gameResult = 0;
                 this.Visible = false;
                 
@@ -206,7 +206,7 @@ namespace TowerDefense
             if (gameState == (int)GameState.Completed&&!gameOver)
             {
                 gameOver = true;
-                MessageBox.Show("恭喜你，过关啦！", "消息", MessageBoxButtons.OK);
+                MessageBox.Show("Congratulations, you passed!", "Animal Farms", MessageBoxButtons.OK);
                 game.gameResult = 2;
                 this.Visible = false;
             }
@@ -274,12 +274,12 @@ namespace TowerDefense
 
         private void paintProperties(Graphics g)
         {
-            SolidBrush clearBrush = new SolidBrush(Color.IndianRed);
+            SolidBrush clearBrush = new SolidBrush(Color.White);
             SolidBrush propBrush = new SolidBrush(Color.Black);
             Font propFont = new Font("宋体", 24);
             g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
-            g.DrawString("食物: " + game.Money.ToString(), propFont, propBrush, 10, 20);
-            g.DrawString(String.Format("已完成波数: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
+            g.DrawString("Food: " + game.Money.ToString(), propFont, propBrush, 10, 20);
+            g.DrawString(String.Format("Finished Waves: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
         private void Item_Click(object sender, EventArgs e)
