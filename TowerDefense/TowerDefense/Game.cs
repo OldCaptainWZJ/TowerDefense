@@ -56,6 +56,8 @@ namespace TowerDefense
 
             while (flag)
             {
+                if (gameResult != 1) return; //game interrupted
+
                 now_t = System.DateTime.Now;
                 double delta_t = (now_t - last_t).TotalSeconds;
                 last_t = now_t;
@@ -82,6 +84,8 @@ namespace TowerDefense
                 if (producedCount == currentWave.enemies.Count && enemies.Count == 0)
                     break; //wave complete
             }
+
+            if (gameResult != 1) return; //game interrupted
 
             currentWaveIndex++;
 
