@@ -42,7 +42,7 @@ namespace TowerDefense
 
     internal class Toad : Enemy
     {
-        private double moveCountdown = 3.0;
+        private double moveCountdown = 1.5;
         public Toad()
         {
             texture = Resource1.toad;
@@ -67,6 +67,7 @@ namespace TowerDefense
             moveCountdown -= delta_t;
             if (moveCountdown < 0.0)
             {
+                moveCountdown += 3.0;
                 movingStage += 2;
                 if (this.reachedBase()) return;
 

@@ -75,11 +75,11 @@ namespace TowerDefense
             texture = Resource1.boxer;
             this.position = position;
             cost = 150;
-            maxCooldown = 5.0;
+            maxCooldown = 3.0;
 
             range = 4.0;
             selectMethod = new SniperSelect(range, position);
-            damageMethod = new NormalDamage(20.0);
+            damageMethod = new NormalDamage(15.0);
         }
 
         public override void select(List<Enemy> enemies, double delta_t)
@@ -95,7 +95,7 @@ namespace TowerDefense
             name = "Hedgehog";
             texture = Resource1.hedgehog;
             this.position = position;
-            cost = 130;
+            cost = 120;
 
             range = 2.5;
             selectMethod = new AreaSelect(range, position);

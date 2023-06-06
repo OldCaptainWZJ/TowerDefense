@@ -327,7 +327,7 @@ namespace TowerDefense
                 return;
 
             bool result = game.placeTower(gridX, gridY, selected);
-            if (!result) MessageBox.Show("钱不够或该格已被占用!");
+            if (!result) MessageBox.Show("Not enough food or this tile is occupied!");
 
             selected = -1;
         }
