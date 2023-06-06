@@ -140,19 +140,19 @@ namespace TowerDefense
             return true;
         }
 
-        public bool placeTower(int x, int y, int type) //return true if success
+        public int placeTower(int x, int y, int type) //return 0: success, 1: not enough food, 2: tile occupied
         {
-            if (occupied[x, y]) return false;
+            if (occupied[x, y]) return 2;
 
             Tile tile = new Tile(x, y);
             Tower tower = Tower.produceTower(type, tile);
 
-            if (money < tower.Cost) return false;
+            if (money < tower.Cost) return 1;
             money -= tower.Cost;
             occupied[x, y] = true;
             towers.Add(tower);
 
-            return true;
+            return 0;
         }
     }
 }

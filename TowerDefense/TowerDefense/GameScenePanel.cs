@@ -14,7 +14,8 @@ namespace TowerDefense
     {
         Failed = 0,
         Ongoing = 1,
-        Completed = 2
+        Completed = 2,
+        Exit = 3
     }
 
     internal class GameScenePanel : Panel
@@ -122,10 +123,11 @@ namespace TowerDefense
                     var tower = Tower.produceTower(towerIdx, new Tile(0, 0));
 
                     Label lbl = new Label();
-                    lbl.Text = tower.getName() + " " + tower.cost.ToString();
+                    lbl.Text = tower.getName() + "\n" + tower.cost.ToString();
                     lbl.AutoSize = false; // 不自动调整大小，将其设定为指定宽度
-                    lbl.Font = new Font("serial", 12, FontStyle.Bold);
+                    lbl.Font = new Font("serial", 9, FontStyle.Bold);
                     lbl.Width = towerItemWidth - 50 - 3 * towerItemPadding; // 预留出图片和额外的padding的空间
+                    lbl.Height = 50;
                     lbl.Location = new Point(startX + towerItemPadding, startY + towerItemPadding + (50 - lbl.Height) / 2); // 使得label和图片在同一行中居中
                     lbl.Click += Item_Click; // 添加点击事件处理器
                     towerListPanel.Controls.Add(lbl);
@@ -188,7 +190,7 @@ namespace TowerDefense
 
         public void exitButtonClick(object sender, EventArgs e)
         {
-            gameState = (int) GameState.Failed;
+            gameState = (int) GameState.Exit;
         }
 
         public void onPaint(object sender, PaintEventArgs e)
@@ -206,11 +208,18 @@ namespace TowerDefense
                 
             }
 
-            if (gameState == (int)GameState.Completed&&!gameOver)
+            if (gameState == (int)GameState.Completed)
             {
                 gameOver = true;
                 MessageBox.Show("Congratulations, you passed!", "Animal Farms", MessageBoxButtons.OK);
                 game.gameResult = 2;
+                this.Visible = false;
+            }
+
+            if (gameState == (int)GameState.Exit)
+            {
+                gameOver = true;
+                game.gameResult = 3;
                 this.Visible = false;
             }
 
@@ -279,7 +288,7 @@ namespace TowerDefense
             SolidBrush propBrush = new SolidBrush(Color.Black);
             Font propFont = new Font("宋体", 24);
             g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
-            g.DrawString("Food: " + game.Money.ToString(), propFont, propBrush, 10, 20);
+            g.DrawString("Food: " + game.Money.ToString() + "\n" + "Farm Integrity: " + game.BaseHP.ToString(), propFont, propBrush, 10, 20);
             g.DrawString(String.Format("Finished Waves: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
@@ -326,8 +335,9 @@ namespace TowerDefense
             if (gridX < 0 || gridY < 0 || gridX >= GridParams.GridSizeX || gridY >= GridParams.GridSizeY)
                 return;
 
-            bool result = game.placeTower(gridX, gridY, selected);
-            if (!result) MessageBox.Show("Not enough food or this tile is occupied!");
+            int result = game.placeTower(gridX, gridY, selected);
+            if (result == 1) MessageBox.Show("Not enough food!");
+            if (result == 2) MessageBox.Show("This tile is occupied!");
 
             selected = -1;
         }

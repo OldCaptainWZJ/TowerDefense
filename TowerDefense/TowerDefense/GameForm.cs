@@ -656,6 +656,30 @@ namespace TowerDefense
                         levelPanel.Visible = true;
                     }
                 }
+                else if (game != null && game.gameResult == 3)
+                {
+                    timer2.Stop();
+                    if (gameScenePanel != null && gameScenePanel.Parent != null) gameScenePanel.Parent.Controls.Remove(gameScenePanel);
+                    if (gameScenePanel != null) gameScenePanel.Dispose();
+                    gameScenePanel = new GameScenePanel();
+                    gameScenePanel.Parent = start_menu_panel.Parent;
+                    Size panelSize = new Size(GridParams.StartX + GridParams.TileSize * GridParams.GridSizeX, GridParams.StartY + GridParams.TileSize * GridParams.GridSizeY);
+                    gameScenePanel.Size = panelSize;
+                    gameScenePanel.Location = new Point(0, 0);
+                    if (storyPanel != null && storyPanel.Parent != null) storyPanel.Parent.Controls.Remove(storyPanel);
+                    if (storyPanel != null) storyPanel.Dispose();
+                    if (currentLevelIndex == levels.Count)
+                    {
+                        if (levelPanel != null && levelPanel.Parent != null) levelPanel.Parent.Controls.Remove(levelPanel);
+                        if (levelPanel != null) levelPanel.Dispose();
+                        chapterPanel.Visible = true;
+                    }
+                    else
+                    {
+                        //NextLevelButton_Click(null, null);
+                        levelPanel.Visible = true;
+                    }
+                }
             }
         }
     }
