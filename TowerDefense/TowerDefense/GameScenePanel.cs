@@ -246,7 +246,7 @@ namespace TowerDefense
             SolidBrush propBrush = new SolidBrush(Color.Black);
             Font propFont = new Font("宋体", 24);
             g.FillRectangle(clearBrush, 0, 0, GridParams.GridSizeX * GridParams.TileSize, GridParams.StartY);
-            g.DrawString("金钱: " + game.Money.ToString(), propFont, propBrush, 10, 20);
+            g.DrawString("食物: " + game.Money.ToString(), propFont, propBrush, 10, 20);
             g.DrawString(String.Format("已完成波数: " + game.CurrentWave.ToString() + "/" + game.Level.waves.Count()), propFont, propBrush, 240, 20);
         }
 
@@ -294,7 +294,7 @@ namespace TowerDefense
                 return;
 
             bool result = game.placeTower(gridX, gridY, selected);
-            if (!result) MessageBox.Show("Fail to place tower!");
+            if (!result) MessageBox.Show("钱不够或该格已被占用!");
 
             selected = -1;
         }

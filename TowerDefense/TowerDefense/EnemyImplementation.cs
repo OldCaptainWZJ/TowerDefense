@@ -6,6 +6,8 @@ namespace TowerDefense
     {
         public Leopard()
         {
+            texture = Resource1.leopard;
+
             HP = maxHP = 10.0;
             attack = 20;
             speed = defaultSpeed = 2.5;
@@ -41,6 +43,8 @@ namespace TowerDefense
         private double moveCountdown = 2.0;
         public Toad()
         {
+            texture = Resource1.toad;
+
             HP = maxHP = 20.0;
             attack = 20;
             speed = defaultSpeed = 2.0;
@@ -86,6 +90,8 @@ namespace TowerDefense
     {
         public Snail()
         {
+            texture = Resource1.snail;
+
             HP = maxHP = 40.0;
             attack = 10;
             speed = defaultSpeed = 1.0;
@@ -119,9 +125,11 @@ namespace TowerDefense
     {
         public Mouse()
         {
+            texture = Resource1.mouse;
+
             HP = maxHP = 15.0;
             attack = 10;
-            speed = defaultSpeed = 1.5;
+            speed = defaultSpeed = 1.0;
             reward = 20;
 
             status = new List<double>();
@@ -153,6 +161,8 @@ namespace TowerDefense
     {
         public Scorpion()
         {
+            texture = Resource1.scorpion;
+
             HP = maxHP = 20.0;
             attack = 50;
             speed = defaultSpeed = 1.5;
