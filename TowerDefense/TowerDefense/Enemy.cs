@@ -62,6 +62,11 @@ namespace TowerDefense
             if (movingStage >= path.Count-1) return true;
             return false;
         }
+        public bool frozen()
+        {
+            if (status[(int)StatusEffect.Frozen] > 0.0) return true;
+            return false;
+        }
 
         public void initPath(List<Tile> path)
         {

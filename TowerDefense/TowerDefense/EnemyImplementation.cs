@@ -50,7 +50,7 @@ namespace TowerDefense
             HP = maxHP = 20.0;
             attack = 20;
             speed = defaultSpeed = 2.0;
-            reward = 15;
+            reward = 10;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)
@@ -96,10 +96,10 @@ namespace TowerDefense
         {
             texture = Resource1.snail;
 
-            HP = maxHP = 40.0;
+            HP = maxHP = 50.0;
             attack = 20;
-            speed = defaultSpeed = 1.0;
-            reward = 15;
+            speed = defaultSpeed = 0.5;
+            reward = 10;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)

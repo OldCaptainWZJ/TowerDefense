@@ -32,12 +32,12 @@ namespace TowerDefense
             name = "Snowball";
             texture= Resource1.snowball;
             this.position = position;
-            cost = 150;
-            maxCooldown = 1.3;
+            cost = 120;
+            maxCooldown = 0.75;
 
             range = 3.5;
-            selectMethod = new SniperSelect(range, position);
-            damageMethod = new FreezeSingleDamage(4.0);
+            selectMethod = new SniperSelectNotFreeze(range, position);
+            damageMethod = new FreezeSingleDamage(5.0);
         }
 
         public override void select(List<Enemy> enemies, double delta_t)
@@ -53,8 +53,8 @@ namespace TowerDefense
             name = "Napoleon";
             texture = Resource1.napoleon;
             this.position = position;
-            cost = 200;
-            maxCooldown = 1.5;
+            cost = 150;
+            maxCooldown = 1.0;
 
             range = 2.5;
             selectMethod = new AreaSelect(range, position);
@@ -74,7 +74,7 @@ namespace TowerDefense
             name = "Boxer";
             texture = Resource1.boxer;
             this.position = position;
-            cost = 200;
+            cost = 150;
             maxCooldown = 5.0;
 
             range = 4.0;
@@ -95,7 +95,7 @@ namespace TowerDefense
             name = "Hedgehog";
             texture = Resource1.hedgehog;
             this.position = position;
-            cost = 150;
+            cost = 130;
 
             range = 2.5;
             selectMethod = new AreaSelect(range, position);

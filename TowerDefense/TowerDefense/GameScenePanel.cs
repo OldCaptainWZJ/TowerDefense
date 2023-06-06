@@ -192,7 +192,10 @@ namespace TowerDefense
         public void onPaint(object sender, PaintEventArgs e)
         {
             // 游戏正常结束处理，停止绘制
-            if (gameState == (int)GameState.Failed && !gameOver)
+            if (gameOver) return;
+
+            // 游戏正常结束消息框
+            if (gameState == (int)GameState.Failed)
             {
                 gameOver = true;
                 MessageBox.Show("很遗憾，再试一次吧！");
@@ -205,8 +208,6 @@ namespace TowerDefense
                 MessageBox.Show("恭喜你，过关啦！");
                 this.Visible = false;
             }
-
-            if (gameOver) return;
 
             // 将游戏场景绘制到一张图片上
             Graphics sceneG = Graphics.FromImage(gameSceneImage);
