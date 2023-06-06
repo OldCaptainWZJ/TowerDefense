@@ -8,10 +8,10 @@ namespace TowerDefense
         {
             texture = Resource1.leopard;
 
-            HP = maxHP = 10.0;
+            HP = maxHP = 15.0;
             attack = 20;
             speed = defaultSpeed = 2.5;
-            reward = 40;
+            reward = 10;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)
@@ -42,7 +42,7 @@ namespace TowerDefense
 
     internal class Toad : Enemy
     {
-        private double moveCountdown = 2.0;
+        private double moveCountdown = 3.0;
         public Toad()
         {
             texture = Resource1.toad;
@@ -50,7 +50,7 @@ namespace TowerDefense
             HP = maxHP = 20.0;
             attack = 20;
             speed = defaultSpeed = 2.0;
-            reward = 40;
+            reward = 15;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)
@@ -99,7 +99,7 @@ namespace TowerDefense
             HP = maxHP = 40.0;
             attack = 10;
             speed = defaultSpeed = 1.0;
-            reward = 40;
+            reward = 15;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)
@@ -136,7 +136,7 @@ namespace TowerDefense
             HP = maxHP = 15.0;
             attack = 10;
             speed = defaultSpeed = 1.0;
-            reward = 20;
+            reward = 10;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)
@@ -174,7 +174,7 @@ namespace TowerDefense
             HP = maxHP = 20.0;
             attack = 50;
             speed = defaultSpeed = 1.5;
-            reward = 50;
+            reward = 10;
 
             status = new List<double>();
             for (int i = 0; i < (int)StatusEffect.TotalCount; i++)

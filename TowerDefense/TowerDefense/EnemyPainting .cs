@@ -47,6 +47,14 @@ namespace TowerDefense
                 g.DrawEllipse(new Pen(Color.Red, 2), x, y, r, r);
             }
 
+            if (status[(int)StatusEffect.Frozen] > 0.0) //draw frozen effect
+            {
+                float x = (float)(pos_x + 0.15 * GridParams.TileSize);
+                float y = (float)(pos_y + 0.15 * GridParams.TileSize);
+                float r = (float)(0.7) * GridParams.TileSize;
+                g.DrawEllipse(new Pen(Color.LightBlue, 2), x, y, r, r);
+            }
+
             Pen hpPen = new Pen(Color.Red, 2);
             Brush hpBrush = new SolidBrush(Color.Red);
 

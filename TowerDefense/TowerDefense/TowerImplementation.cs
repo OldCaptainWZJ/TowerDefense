@@ -32,7 +32,7 @@ namespace TowerDefense
             name = "Snowball";
             texture= Resource1.snowball;
             this.position = position;
-            cost = 200;
+            cost = 150;
             maxCooldown = 1.3;
 
             range = 3.5;
@@ -53,7 +53,7 @@ namespace TowerDefense
             name = "Napoleon";
             texture = Resource1.napoleon;
             this.position = position;
-            cost = 300;
+            cost = 200;
             maxCooldown = 1.5;
 
             range = 2.5;
@@ -74,7 +74,7 @@ namespace TowerDefense
             name = "Boxer";
             texture = Resource1.boxer;
             this.position = position;
-            cost = 300;
+            cost = 200;
             maxCooldown = 5.0;
 
             range = 4.0;
@@ -95,7 +95,7 @@ namespace TowerDefense
             name = "Hedgehog";
             texture = Resource1.hedgehog;
             this.position = position;
-            cost = 200;
+            cost = 150;
 
             range = 2.5;
             selectMethod = new AreaSelect(range, position);
