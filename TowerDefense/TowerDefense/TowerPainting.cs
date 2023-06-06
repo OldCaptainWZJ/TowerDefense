@@ -35,6 +35,11 @@ namespace TowerDefense
         public void paint(Graphics g)
         {
             g.DrawImage(texture, this.position.x * GridParams.TileSize, this.position.y * GridParams.TileSize, GridParams.TileSize, GridParams.TileSize);
+
+            float x = (float)(this.position.x - this.range + 0.5) * GridParams.TileSize;
+            float y = (float)(this.position.y - this.range + 0.5) * GridParams.TileSize;
+            Pen pen = new Pen(Color.Black);
+            g.DrawEllipse(pen, x, y, (float)this.range * 2 * GridParams.TileSize, (float)this.range * 2 * GridParams.TileSize);
         }
     }
 }

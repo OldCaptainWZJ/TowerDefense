@@ -147,6 +147,7 @@ namespace TowerDefense
         protected void defaultDealtDamage(double val)
         {
             HP -= val;
+            displayHurt();
         }
 
         protected void defaultDealtStatusEffect(StatusEffect type, double val)
@@ -180,6 +181,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {

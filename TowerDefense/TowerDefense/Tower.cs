@@ -26,6 +26,8 @@ namespace TowerDefense
         protected double maxCooldown;
         protected double cooldown;
 
+        protected double range;
+
         public int Cost { get { return cost; } }
 
         public void initCooldown()
@@ -80,6 +82,7 @@ namespace TowerDefense
             cost = 100;
             maxCooldown = 1.0;
 
+            range = 2.0;
             selectMethod = new SniperSelect(2.0, position);
             damageMethod = new NormalDamage(5.0);
 

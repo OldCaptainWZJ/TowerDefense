@@ -18,6 +18,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {
@@ -55,6 +57,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {
@@ -102,6 +106,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {
@@ -137,6 +143,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {
@@ -173,6 +181,8 @@ namespace TowerDefense
             {
                 status.Add(0.0);
             }
+
+            initHurtTimer();
         }
         public override void move(double delta_t)
         {

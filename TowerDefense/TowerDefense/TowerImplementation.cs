@@ -14,7 +14,8 @@ namespace TowerDefense
             cost = 100;
             maxCooldown = 1.0;
 
-            selectMethod = new SniperSelect(3.0, position);
+            range = 3.0;
+            selectMethod = new SniperSelect(range, position);
             damageMethod = new NormalDamage(5.0);
         }
 
@@ -34,7 +35,8 @@ namespace TowerDefense
             cost = 200;
             maxCooldown = 1.3;
 
-            selectMethod = new SniperSelect(3.5, position);
+            range = 3.5;
+            selectMethod = new SniperSelect(range, position);
             damageMethod = new FreezeSingleDamage(4.0);
         }
 
@@ -54,7 +56,8 @@ namespace TowerDefense
             cost = 300;
             maxCooldown = 1.5;
 
-            selectMethod = new AreaSelect(2.5, position);
+            range = 2.5;
+            selectMethod = new AreaSelect(range, position);
             damageMethod = new NormalDamage(3.0);
         }
 
@@ -74,7 +77,8 @@ namespace TowerDefense
             cost = 300;
             maxCooldown = 5.0;
 
-            selectMethod = new SniperSelect(5.0, position);
+            range = 4.0;
+            selectMethod = new SniperSelect(range, position);
             damageMethod = new NormalDamage(20.0);
         }
 
@@ -93,7 +97,8 @@ namespace TowerDefense
             this.position = position;
             cost = 200;
 
-            selectMethod = new AreaSelect(2.5, position);
+            range = 2.5;
+            selectMethod = new AreaSelect(range, position);
             damageMethod = new ContinuousDamage(2.0);
         }
 
