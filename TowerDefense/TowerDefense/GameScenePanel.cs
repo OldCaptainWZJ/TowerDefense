@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
+using System.Data;
 
 namespace TowerDefense
 {
@@ -195,14 +196,17 @@ namespace TowerDefense
             if (gameState == (int)GameState.Failed && !gameOver)
             {
                 gameOver = true;
-                MessageBox.Show("很遗憾，再试一次吧！");
+                MessageBox.Show("很遗憾，再试一次吧！", "消息", MessageBoxButtons.OK);
+                game.gameResult = 0;
                 this.Visible = false;
+                
             }
 
-            if (gameState == (int)GameState.Completed)
+            if (gameState == (int)GameState.Completed&&!gameOver)
             {
                 gameOver = true;
-                MessageBox.Show("恭喜你，过关啦！");
+                MessageBox.Show("恭喜你，过关啦！", "消息", MessageBoxButtons.OK);
+                game.gameResult = 2;
                 this.Visible = false;
             }
 

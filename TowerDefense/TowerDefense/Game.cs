@@ -9,6 +9,7 @@ namespace TowerDefense
 {
     internal partial class Game
     {
+        public int gameResult=1;
         private List<Tower> towers = new List<Tower>();
         private List<Enemy> enemies = new List<Enemy>();
         private List<Enemy> deleteList = new List<Enemy>();
@@ -87,8 +88,8 @@ namespace TowerDefense
             if (baseHP <= 0) flag = false;
 
             //callback: 0:failed, 1:wave success, 2:level complete
-            if (!flag) panel.waveCallback(0);
-            else if (currentWaveIndex == level.waves.Count) panel.waveCallback(2);
+            if (!flag) { panel.waveCallback(0); }
+            else if (currentWaveIndex == level.waves.Count) { panel.waveCallback(2); }
             else panel.waveCallback(1);
         }
 

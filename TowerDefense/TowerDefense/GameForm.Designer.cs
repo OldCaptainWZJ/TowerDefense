@@ -31,9 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.start_menu_panel = new System.Windows.Forms.Panel();
-            this.help_panel = new System.Windows.Forms.Panel();
-            this.help_to_start_menu_button = new System.Windows.Forms.Button();
-            this.help_content_textBox = new System.Windows.Forms.TextBox();
             this.start_game_button = new System.Windows.Forms.Button();
             this.select_level_button = new System.Windows.Forms.Button();
             this.help_button = new System.Windows.Forms.Button();
@@ -41,13 +38,11 @@
             this.cover_pictureBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.start_menu_panel.SuspendLayout();
-            this.help_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // start_menu_panel
             // 
-            this.start_menu_panel.Controls.Add(this.help_panel);
             this.start_menu_panel.Controls.Add(this.start_game_button);
             this.start_menu_panel.Controls.Add(this.select_level_button);
             this.start_menu_panel.Controls.Add(this.help_button);
@@ -57,37 +52,6 @@
             this.start_menu_panel.Name = "start_menu_panel";
             this.start_menu_panel.Size = new System.Drawing.Size(1181, 855);
             this.start_menu_panel.TabIndex = 0;
-            // 
-            // help_panel
-            // 
-            this.help_panel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.help_panel.Controls.Add(this.help_to_start_menu_button);
-            this.help_panel.Controls.Add(this.help_content_textBox);
-            this.help_panel.Location = new System.Drawing.Point(43, 21);
-            this.help_panel.Name = "help_panel";
-            this.help_panel.Size = new System.Drawing.Size(977, 863);
-            this.help_panel.TabIndex = 5;
-            this.help_panel.Visible = false;
-            // 
-            // help_to_start_menu_button
-            // 
-            this.help_to_start_menu_button.Location = new System.Drawing.Point(947, 11);
-            this.help_to_start_menu_button.Name = "help_to_start_menu_button";
-            this.help_to_start_menu_button.Size = new System.Drawing.Size(213, 59);
-            this.help_to_start_menu_button.TabIndex = 1;
-            this.help_to_start_menu_button.Text = "BACK";
-            this.help_to_start_menu_button.UseVisualStyleBackColor = true;
-            this.help_to_start_menu_button.Click += new System.EventHandler(this.help_to_start_menu_button_Click);
-            // 
-            // help_content_textBox
-            // 
-            this.help_content_textBox.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.help_content_textBox.Location = new System.Drawing.Point(151, 92);
-            this.help_content_textBox.Multiline = true;
-            this.help_content_textBox.Name = "help_content_textBox";
-            this.help_content_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.help_content_textBox.Size = new System.Drawing.Size(864, 759);
-            this.help_content_textBox.TabIndex = 0;
             // 
             // start_game_button
             // 
@@ -180,8 +144,6 @@
             this.Name = "GameForm";
             this.Text = "Tower Defense";
             this.start_menu_panel.ResumeLayout(false);
-            this.help_panel.ResumeLayout(false);
-            this.help_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cover_pictureBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -194,9 +156,6 @@
         private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.Button select_level_button;
         private System.Windows.Forms.Button help_button;
-        private System.Windows.Forms.Panel help_panel;
-        private System.Windows.Forms.TextBox help_content_textBox;
-        private System.Windows.Forms.Button help_to_start_menu_button;
         private System.Windows.Forms.Timer timer1;
     }
 }
